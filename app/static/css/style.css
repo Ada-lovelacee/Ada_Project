@@ -1,0 +1,125 @@
+:root {
+  --brand-navy: #102542;
+  --brand-cyan: #2d9cdb;
+  --brand-gold: #f2c14e;
+  --brand-ice: #f4f8fb;
+  --brand-ink: #1d2a35;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(45, 156, 219, 0.22), transparent 26%),
+    radial-gradient(circle at top right, rgba(242, 193, 78, 0.18), transparent 22%),
+    linear-gradient(180deg, #eef5fb 0%, #f9fbfd 48%, #eef4f8 100%);
+  color: var(--brand-ink);
+  min-height: 100vh;
+}
+
+.hero-nav {
+  background: linear-gradient(135deg, rgba(16, 37, 66, 0.94), rgba(16, 37, 66, 0.76));
+  backdrop-filter: blur(8px);
+}
+
+.hero-section {
+  padding: 3rem 0 7rem;
+  background: linear-gradient(135deg, #102542 0%, #1d4e89 70%, #2d9cdb 100%);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::after {
+  content: "";
+  position: absolute;
+  inset: auto -10% -80px auto;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(242, 193, 78, 0.18);
+  filter: blur(10px);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.13);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(7, 18, 37, 0.28);
+  backdrop-filter: blur(16px);
+}
+
+.metric-tile {
+  padding: 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.metric-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.72;
+}
+
+.metric-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.dashboard-section {
+  margin-top: -3.5rem;
+}
+
+.stat-card,
+.card {
+  border-radius: 22px;
+}
+
+.stat-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 34px rgba(27, 55, 88, 0.12);
+}
+
+.progress-lg {
+  height: 1.5rem;
+  border-radius: 999px;
+  background-color: #eaf1f7;
+}
+
+.tracking {
+  letter-spacing: 0.18em;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.status-online {
+  background: rgba(47, 179, 68, 0.12);
+  color: #1d7d34;
+}
+
+.status-training {
+  background: rgba(45, 156, 219, 0.12);
+  color: #1f75b8;
+}
+
+.status-offline {
+  background: rgba(220, 53, 69, 0.12);
+  color: #b02a37;
+}
+
+@media (max-width: 991.98px) {
+  .dashboard-section {
+    margin-top: -2.5rem;
+  }
+}

@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block title %}联邦学习可视化系统{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+  <div class="container py-5">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-7">
+        <span class="badge text-bg-light text-primary-emphasis px-3 py-2 mb-3">Flask + MySQL + Bootstrap</span>
+        <h1 class="display-5 fw-bold mb-3">快速交付的联邦学习可视化系统</h1>
+        <p class="lead text-light opacity-75 mb-4">
+          展示全局模型收敛趋势、客户端节点状态、轮次聚合结果与模拟训练推进，适合课程设计、毕设原型和项目演示。
+        </p>
+        <div class="d-flex flex-wrap gap-3">
+          <button class="btn btn-warning btn-lg" id="simulateBtn">
+            <i class="bi bi-play-circle me-2"></i>模拟下一轮训练
+          </button>
+          <a class="btn btn-outline-light btn-lg" href="#dashboard">查看系统面板</a>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="glass-panel p-4">
+          <p class="text-uppercase small tracking mb-2">System Highlights</p>
+          <div class="row g-3">
+            <div class="col-6">
+              <div class="metric-tile">
+                <div class="metric-label">后端</div>
+                <div class="metric-value">Flask API</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="metric-tile">
+                <div class="metric-label">数据库</div>
+                <div class="metric-value">MySQL 8</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="metric-tile">
+                <div class="metric-label">前端</div>
+                <div class="metric-value">Bootstrap 5</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="metric-tile">
+                <div class="metric-label">能力</div>
+                <div class="metric-value">实时可视化</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container dashboard-section" id="dashboard">
+  <div class="row g-4 mt-n5">
+    <div class="col-md-6 col-xl-3">
+      <div class="card shadow-sm border-0 stat-card">
+        <div class="card-body">
+          <p class="text-secondary mb-2">任务名称</p>
+          <h5 class="mb-0" id="taskName">加载中...</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+      <div class="card shadow-sm border-0 stat-card">
+        <div class="card-body">
+          <p class="text-secondary mb-2">全局准确率</p>
+          <h3 class="mb-0" id="globalAccuracy">--</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+      <div class="card shadow-sm border-0 stat-card">
+        <div class="card-body">
+          <p class="text-secondary mb-2">在线节点数</p>
+          <h3 class="mb-0" id="onlineClients">--</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+      <div class="card shadow-sm border-0 stat-card">
+        <div class="card-body">
+          <p class="text-secondary mb-2">平均时延</p>
+          <h3 class="mb-0"><span id="avgLatency">--</span> ms</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4 mt-1">
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body p-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+              <h4 class="mb-1">全局模型收敛曲线</h4>
+              <p class="text-secondary mb-0">展示每轮联邦聚合后的准确率与损失变化</p>
+            </div>
+            <span class="badge rounded-pill text-bg-primary" id="taskStatus">运行中</span>
+          </div>
+          <canvas id="roundChart" height="140"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body p-4">
+          <h4 class="mb-1">训练进度</h4>
+          <p class="text-secondary mb-4">当前联邦任务的推进状态</p>
+          <div class="progress progress-lg mb-3">
+            <div class="progress-bar bg-warning text-dark fw-semibold" id="taskProgress" style="width: 0%">0%</div>
+          </div>
+          <div class="list-group list-group-flush">
+            <div class="list-group-item px-0 d-flex justify-content-between">
+              <span class="text-secondary">模型名称</span>
+              <strong id="modelName">--</strong>
+            </div>
+            <div class="list-group-item px-0 d-flex justify-content-between">
+              <span class="text-secondary">轮次数</span>
+              <strong id="roundCount">--</strong>
+            </div>
+            <div class="list-group-item px-0 d-flex justify-content-between">
+              <span class="text-secondary">当前损失</span>
+              <strong id="globalLoss">--</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4 mt-1">
+    <div class="col-lg-7">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+          <h4 class="mb-1">客户端节点状态</h4>
+          <p class="text-secondary mb-3">监控每个客户端的数据量、训练状态与贡献度</p>
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <thead>
+                <tr>
+                  <th>节点</th>
+                  <th>地区</th>
+                  <th>状态</th>
+                  <th>数据量</th>
+                  <th>准确率</th>
+                  <th>贡献度</th>
+                </tr>
+              </thead>
+              <tbody id="clientTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+          <h4 class="mb-1">节点贡献占比</h4>
+          <p class="text-secondary mb-3">直观看到每个客户端对全局模型的影响</p>
+          <canvas id="contributionChart" height="220"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
