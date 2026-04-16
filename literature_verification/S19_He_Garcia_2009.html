@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+<html lang="">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,user-scalable=no" />
+<meta name="format-detection" content="telephone=no">
+<!-- HTML Meta Tags -->
+<title>
+    Advances and Open Problems in Federated Learning | CiNii Research
+</title>
+
+<meta name="robots" content="all">
+<meta name="googlebot" content="all">
+<!-- Highwire Meta Tags new edition-->
+<meta name="citation_abstract_html_url" content="https://cir.nii.ac.jp/crid/1360294646686146432">
+<meta name="citation_author" content="Peter Kairouz, H. Brendan McMahan">
+<meta name="citation_title" content="Advances and Open Problems in Federated Learning">
+<meta name="citation_date" content="2021-06-23">
+<meta name="citation_publisher" content="Emerald">
+<meta name="citation_journal_title" content="Foundations and Trends in Machine Learning">
+<meta name="citation_volume" content="14">
+<meta name="citation_issue" content="1-2">
+<meta name="citation_firstpage" content="1">
+<meta name="citation_lastpage" content="210">
+<meta name="citation_doi" content="10.1561/2200000083">
+<meta name="citation_issn" content="">
+<meta name="citation_keywords" content="">
+<meta name="citation_dissertation_institution" content="">
+<meta name="citation_dissertation_name" content="">
+<meta name="citation_language" content="">
+<meta name="citation_conference_title" content="">
+
+<!-- Opengraph meta tags -->
+<meta property="og:url" content="https://cir.nii.ac.jp/crid/1360294646686146432">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Advances and Open Problems in Federated Learning | CiNii Research">
+<meta property="og:description" content="&amp;lt;jats:p&amp;gt;Federated learning (FL) is a machine learning setting where many clients (e.g., mobile devices or whole organizations) collaboratively train a model under the orchestration of a central server (e.g., service provider), while keeping the training data decentralized. FL embodies the principles of focused data collection and minimization, and can mitigate many of the systemic privacy risks and costs resulting from traditional, centralized machine learning and data science approaches. Motivated by the explosive growth in FL research, this monograph discusses recent advances and presents an extensive collection of open problems and challenges.&amp;lt;/jats:p&amp;gt;">
+<meta property="og:site_name" content="CiNii Research">
+<meta property="fb:app_id" content="359135477483189">
+
+<!-- Twitter Meta tags -->
+<meta property="twitter:image" content="">
+<meta property="twitter:site" content="@cinii_jp">
+<meta property="twitter:card" content="summary">
+
+<!-- Schema.org JSON-LD-->
+<link rel="meta" type="application/rdf+xml" title="RDF" href="https://cir.nii.ac.jp/crid/1360294646686146432.rdf" />
+<link rel="meta" type="application/json" title="JSON-LD 1.0" href="https://cir.nii.ac.jp/crid/1360294646686146432.json" />
+<script type="application/ld+json">{
+        "@context": "http://schema.org",
+        "@graph": [
+            {
+                "@type": "ScholarlyArticle",
+                "name": "Advances and Open Problems in Federated Learning",
+                "description": "<jats:p>Federated learning (FL) is a machine learning setting where many clients (e.g., mobile devices or whole organizations) collaboratively train a model under the orchestration of a central server (e.g., service provider), while keeping the training data decentralized. FL embodies the principles of focused data collection and minimization, and can mitigate many of the systemic privacy risks and costs resulting from traditional, centralized machine learning and data science approaches. Motivated by the explosive growth in FL research, this monograph discusses recent advances and presents an extensive collection of open problems and challenges.<\/jats:p>",
+                "author": "Peter Kairouz, H. Brendan McMahan",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Emerald"
+                },
+                "publication": "Foundations and Trends in Machine Learning",
+                "datePublished": "2021-06-23",
+                "pageStart": "1",
+                "pageEnd": "210",
+                "identifier": {
+                    "@type": "DOI",
+                    "text":"10.1561/2200000083"
+                },
+                "keywords": "",
+                "inLanguage": "",
+                "url": "https://cir.nii.ac.jp/crid/1360294646686146432"
+            }
+        ]
+    }</script>
+<link rel="icon" href="/static/images/favicon.ico" type="image/vnd.microsoft.icon"/><!--確認用-->
+<link rel="apple-touch-icon" href="/static/images/apple-touch-icon.png" sizes="180x180"/>
+<link rel="icon" type="image/png" href="/static/images/android-chrome-256x256.png" sizes="256x256"/>
+
+<!-- jQuery -->
+    <script src="/static/js/jquery-3.7.1.min.js?ebe1c1c360fe5088c5ff762755bbde31" type="text/javascript"
+    >
+    </script>
+
+<!-- Bootstrap JS -->
+    <script src="/static/js/bootstrap.min.js?ebe1c1c360fe5088c5ff762755bbde31" type="text/javascript"
+    >
+    </script>
+<!-- CSS -->
+    <link href="/static/css/cinii.css?ebe1c1c360fe5088c5ff762755bbde31" rel="stylesheet" type="text/css" />
+    <link href="/static/css/cinii-ext.css?ebe1c1c360fe5088c5ff762755bbde31" rel="stylesheet" type="text/css" />
+<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet"><!--for prototyping-->
+    <script src="/static/js/common.js?ebe1c1c360fe5088c5ff762755bbde31" type="text/javascript"
+    >
+    </script>
+<script>
+    const textSP = 'スマートフォン版';
+    const textPC = 'PC版';
+</script>
+    <script src="/static/js/changeDisplayMode.js?ebe1c1c360fe5088c5ff762755bbde31" type="text/javascript"
+    >
+    </script>
+    <script src="/static/js/anchor-scroller.js?ebe1c1c360fe5088c5ff762755bbde31" type="text/javascript"
+    >
+    </script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/static/js/showMoreItems.js?ebe1c1c360fe5088c5ff762755bbde31" type="text/javascript"
+    >
+    </script>
+    <script src="/static/js/cinii.js?ebe1c1c360fe5088c5ff762755bbde31" type="text/javascript"
+    >
+    </script>
+    <script src="/static/js/min/htmx-2.0.6.min.js?ebe1c1c360fe5088c5ff762755bbde31" type="text/javascript"
+    >
+    </script>
+<!--[if IE 8.0]>
+    <link href="/static/css/cinii-ie8.css?ebe1c1c360fe5088c5ff762755bbde31" rel="stylesheet" type="text/css" />
+<![endif]-->
+<link rel="search" type="application/opensearchdescription+xml" title="CiNii Research"
+      href="/opensearch/description.xml"/>
+<link rel="search" type="application/opensearchdescription+xml" title="CiNii Research - data"
+      href="/opensearch/dataset.xml"/>
+<link rel="search" type="application/opensearchdescription+xml" title="CiNii Research - article"
+      href="/opensearch/article.xml"/>
+<link rel="search" type="application/opensearchdescription+xml" title="CiNii Research - book"
+      href="/opensearch/book.xml"/>
+<link rel="search" type="application/opensearchdescription+xml" title="CiNii Research - dissertation"
+      href="/opensearch/dissertation.xml"/>
+<link rel="search" type="application/opensearchdescription+xml" title="CiNii Research - project"
+      href="/opensearch/project.xml"/>
+<link rel="search" type="application/opensearchdescription+xml" title="CiNii Research - researcher"
+      href="/opensearch/researcher.xml"/>
+</head>
+<body class="research detail with_sidenavi ">
+
+    <nav class="navbar navbar-header">
+        <div class="navbar-topcontent">
+            <!--ブランド名 ロゴ名の表示-->
+            <a href="/" class="navbar-brand headerlogo" onclick="sendEvent('CiNii Researchロゴ')">CiNii 国立情報学研究所 学術情報ナビゲータ[サイニィ]</a>
+                    <a href="#itemdetail" class="skiplink" role="button">詳細へ移動</a>
+    			<a href="#searchbox" class="skiplink" id="blockskip-searchbox" role="button">検索フォームへ移動</a>
+            <!--トグルボタンの設置-->
+            <button type="button" class="navbar-toggle button-menu collapsed" data-toggle="collapse" data-target="#nav-content">
+                メニュー
+            </button>
+            <button id="button-search" type="button" class="navbar-toggle button-search collapsed" data-toggle="collapse" data-target="#searchbox">
+                検索
+            </button>
+        </div>
+        <div id="nav-content" class="collapse navbar-collapse headermenu">
+            <!--リンクのリスト メニューリスト-->
+            <ul class="nav navbar-nav menu-service-list">
+                <li class="active"><a href="/articles" class="menu-service-item" onclick="sendEvent('MENU-CiR')">論文・データをさがす</a></li>
+                <li><a href="javascript:void(0)" class="menu-service-item" onclick="sendEvent('MENU-CiB');buildCibPath('https://ci.nii.ac.jp/books/','https://ci.nii.ac.jp/books/search','ja');">大学図書館の本をさがす</a></li>
+            </ul>
+
+            <!--リンクのリスト　ユーティリティ・ユーザー情報-->
+            <ul class="nav navbar-nav menu-utility-list">
+                <li>
+                        <a href="https://auth.cir.nii.ac.jp/user/auth/login?contentsServer=RESEARCH" class="menu-utility-item" onclick="sendEvent('ログイン')">ログイン</a>
+                </li>
+                    <li><a href="/crid/1360294646686146432?lang=en" class="menu-utility-item" onclick="sendEvent('表示言語切替')">English</a></li>
+            </ul>
+        </div>
+    </nav>
+<main class="container body-wrap" role="main">
+
+
+<div id="searchbox" class="searchbox" role="search" tabindex="-1">
+    <form name="searchform" id="searchboxform" action="/all" method="get">
+        <div class="article_search searchFormContainer">
+            <div class="searchformcontents container-fluid">
+                <div class="row form-articles">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-2">
+                        <div class="row row-textform">
+                            <div class="col-xs-10 col-sm-10 col-form">
+                                <div class="main_srchterm_wrap">
+                                    <input id="q_input" type="text" name="q" class="main_srchterm searchforminput"
+                                           onkeypress="return deleteCoordinatesByKey();"
+                                           value=""
+                                           placeholder="フリーワード"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-2 col-sm-2">
+                                <button class="btn searchbtn" id="search_btn_id"
+                                        onclick="onClickSearchButton();sendEvent('検索実行');return false;">
+検索                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="advanced_search" class="col-xs-12 col-sm-12 advanced_search">
+<div class="row" id="row1">
+    <div class="col-xs-12 col-sm-12">
+<div class="row row-textform">
+    <div class="col-xs-12 col-sm-2 searchformlabel">
+        <label for="sopt_title">
+タイトル        </label>
+    </div>
+    <div class="col-xs-12 col-sm-10 col-form"><input type="text" id="sopt_title"
+                                                                name="title"
+                                                                class="searchforminput"
+                                                                value=""/>
+    </div>
+</div>
+    </div>
+</div>
+
+<div class="row" id="row2">
+    <div class="col-xs-12 col-sm-4">
+    <div class="row row-textform">
+        <div class="col-xs-12 col-sm-6 searchformlabel">
+            <label for="sopt1">
+人物/団体名            </label>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-form">
+            <input type="text" id="sopt1" name="creator"
+                   class="searchforminput"
+                   value=""
+            />
+        </div>
+    </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-4">
+    <div class="row row-textform">
+        <div class="col-xs-12 col-sm-6 searchformlabel">
+            <label for="sopt_researcherId">
+著者ID/研究者番号            </label>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-form"><input type="text" id="sopt_researcherId"
+                                                        name="researcherId"
+                                                        class="searchforminput"
+                                                        value=""/></div>
+    </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-4">
+    <div class="row row-textform">
+        <div class="col-xs-12 col-sm-5 searchformlabel">
+            <label for="sopt_affiliation">所属機関</label>
+        </div>
+        <div class="col-xs-12 col-sm-7 col-form">
+            <input type="text" id="sopt_affiliation"
+                   name="affiliation"
+                   class="searchforminput"
+                   value=""/>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class="row" id="row3">
+
+    <div class="col-xs-12 col-sm-4">
+    <div class="row row-textform">
+        <div class="col-xs-12 col-sm-6 searchformlabel">
+            <label for="sopt_issn">ISSN</label>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-form">
+            <input type="text" id="sopt_issn"
+                   name="issn"
+                   class="searchforminput"
+                   value=""/>
+        </div>
+    </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-4">
+    <div class="row row-textform">
+        <div class="col-xs-12 col-sm-6 searchformlabel">
+            <label for="sopt_doi">DOI</label>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-form"><input type="text" id="sopt_doi"
+                                                        name="doi"
+                                                        class="searchforminput"
+                                                        value=""/></div>
+    </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-4">
+    <div class="row row-textform">
+        <div class="col-xs-12 col-sm-5 searchformlabel">
+            <label for="sopt3">
+期間            </label>
+        </div>
+        <div class="col-xs-12 col-sm-7 period">
+            <span>
+                <input type="text" id="sopt3" maxlength="6"
+                        name="from" class="searchforminput advanced-search-condition-period"
+                        value=""
+                        placeholder="YYYY(MM)"/>
+            </span>
+            <span class="tilde">〜</span>
+            <span>
+                <input type="text" id="sopt4" maxlength="6"
+                       name="until" class="searchforminput advanced-search-condition-period"
+                       value=""
+                       placeholder="YYYY(MM)"/>
+            </span>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class="row" id="row4">
+    <div class="col-xs-12 col-sm-12">
+        <div class="row row-textform filter-fulltext">
+            <div class="col-xs-12 col-sm-2 searchformlabel"><label>本文リンク</label></div>
+            <div class="col-xs-12 col-sm-10 col-filter">
+    <label>
+        <input type="checkbox"
+               id="sopt_hasLinkToFullText"
+               name='hasLinkToFullText'
+               value="true"
+               
+        ><span class="customCB"></span>
+本文リンクあり    </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row filter" id="row5">
+    <div class="col-xs-12 col-sm-12">
+    <div class="row row-textform">
+        <div class="col-xs-12 col-sm-2 searchformlabel">
+            <label for="sopt_dataSourceType">
+データソース            </label>
+        </div>
+        <div class="col-xs-12 col-sm-10 col-filter datasource-select">
+            <label title="JaLC">
+                <input type="checkbox" value="JALC" class="sopt_dataSourceType_input"
+                ><span class="customCB"></span>
+                JaLC
+            </label>
+            <label title="IRDB">
+                <input type="checkbox" value="IRDB" class="sopt_dataSourceType_input"
+                ><span class="customCB"></span>
+                IRDB
+            </label>
+            <label title="Crossref">
+                <input type="checkbox" value="CROSSREF" class="sopt_dataSourceType_input"
+                ><span class="customCB"></span>
+                Crossref
+            </label>
+            <label title="DataCite">
+                <input type="checkbox" value="DATACITE" class="sopt_dataSourceType_input"
+                ><span class="customCB"></span>
+                DataCite
+            </label>
+            <label title="NDLサーチ">
+                <input type="checkbox" value="NDL_SEARCH" class="sopt_dataSourceType_input"
+                ><span class="customCB"></span>
+                NDLサーチ
+            </label>
+            <label title="NDLデジコレ（旧NII-ELS）">
+                <input type="checkbox" value="NDL_DC" class="sopt_dataSourceType_input"
+                ><span class="customCB"></span>
+                NDLデジコレ（旧NII-ELS）
+            </label>
+            <label title="RUDA">
+                <input type="checkbox" value="RUDA" class="sopt_dataSourceType_input"
+                ><span class="customCB"></span>
+                RUDA
+            </label>
+            <label title="JDCat">
+                <input type="checkbox" value="JDCAT" class="sopt_dataSourceType_input"
+                ><span class="customCB"></span>
+                JDCat
+            </label>
+            <label title="NINJAL">
+                <input type="checkbox" value="NINJAL" class="sopt_dataSourceType_input"
+                ><span class="customCB"></span>
+                NINJAL
+            </label>
+            <label title="CiNii Articles">
+                <input type="checkbox" value="CIA" class="sopt_dataSourceType_input"
+                ><span class="customCB"></span>
+                CiNii Articles
+            </label>
+            <label title="CiNii Books">
+                <input type="checkbox" value="CIB" class="sopt_dataSourceType_input"
+                ><span class="customCB"></span>
+                CiNii Books
+            </label>
+            <label title="NACSIS-CAT/ILL">
+                <input type="checkbox" value="NACSIS_CAT" class="sopt_dataSourceType_input"
+                ><span class="customCB"></span>
+                NACSIS-CAT/ILL
+            </label>
+            <label title="DBpedia">
+                <input type="checkbox" value="DBPEDIA" class="sopt_dataSourceType_input"
+                ><span class="customCB"></span>
+                DBpedia
+            </label>
+            <label title="KAKEN">
+                <input type="checkbox" value="KAKEN" class="sopt_dataSourceType_input"
+                ><span class="customCB"></span>
+                KAKEN
+            </label>
+            <label title="Integbio">
+                <input type="checkbox" value="INTEGBIO" class="sopt_dataSourceType_input"
+                ><span class="customCB"></span>
+                Integbio
+            </label>
+            <label title="PubMed">
+                <input type="checkbox" value="PUBMED" class="sopt_dataSourceType_input"
+                ><span class="customCB"></span>
+                PubMed
+            </label>
+            <label title="LSDB Archive">
+                <input type="checkbox" value="LSDB_ARCHIVE" class="sopt_dataSourceType_input"
+                ><span class="customCB"></span>
+                LSDB Archive
+            </label>
+            <label title="極地研ADS">
+                <input type="checkbox" value="NIPR_ADS" class="sopt_dataSourceType_input"
+                ><span class="customCB"></span>
+                極地研ADS
+            </label>
+            <label title="極地研学術DB">
+                <input type="checkbox" value="NIPR_SCIENCE_DB" class="sopt_dataSourceType_input"
+                ><span class="customCB"></span>
+                極地研学術DB
+            </label>
+            <label title="OpenAIRE">
+                <input type="checkbox" value="OPENAIRE" class="sopt_dataSourceType_input"
+                ><span class="customCB"></span>
+                OpenAIRE
+            </label>
+            <label title="公共データカタログ">
+                <input type="checkbox" value="PUBLIC_DATA" class="sopt_dataSourceType_input"
+                ><span class="customCB"></span>
+                公共データカタログ
+            </label>
+        </div>
+    </div>
+    </div>
+
+</div>
+                    </div>
+                    <!-- end of .advanced_search -->
+
+                    <div class="searchboxfooter col-xs-12 col-sm-12">
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-2 row">
+                            <div class="entity_index col-xs-12 col-sm-10">
+                                <ul class="entity_index_list">
+                                    <li class="entity_index_unit entity_index_unit-active">
+                                        <a href="/all"
+                                           onclick="sendEvent('検索タブ：すべて');">
+                                            <span class="entity_index_title">すべて</span>
+                                            <span class="entity_index_number">
+                                                
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <li class="entity_index_unit ">
+                                        <a href="/data"
+                                           onclick="sendEvent('検索タブ：研究データ');">
+                                            <span class="entity_index_title">研究データ</span>
+                                            <span class="entity_index_number">
+                                                
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <li class="entity_index_unit ">
+                                        <a href="/articles"
+                                           onclick="sendEvent('検索タブ：論文')">
+                                            <span class="entity_index_title">論文</span>
+                                            <span class="entity_index_number">
+                                                
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <li class="entity_index_unit ">
+                                        <a href="/books"
+                                           onclick="sendEvent('検索タブ：本')">
+                                            <span class="entity_index_title">本</span>
+                                            <span class="entity_index_number">
+                                                
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <li class="entity_index_unit ">
+                                        <a href="/dissertations"
+                                           onclick="sendEvent('検索タブ：博士論文')">
+                                            <span class="entity_index_title">博士論文</span>
+                                            <span class="entity_index_number">
+                                                
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <li class="entity_index_unit ">
+                                        <a href="/projects"
+                                           onclick="sendEvent('検索タブ：プロジェクト')">
+                                            <span class="entity_index_title">プロジェクト</span>
+                                            <span class="entity_index_number">
+                                                
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                        <li class="entity_index_unit ">
+                                            <a href="/researchers"
+                                               onclick="sendEvent('検索タブ：人物')">
+                                                <span class="entity_index_title">人物</span>
+                                                <span class="entity_index_number">
+                                                    
+                                                </span>
+                                            </a>
+<a  href="javascript:void(0)" class="button-balloon button-balloon-ext" data-balloon="note-personsearch-popup"> >
+人物検索機能について</a>                                        </li>
+
+                                    <li class="entity_index_unit visible-xs advanced_search_open_and_close_action_button">
+                                        <a class="btn-toggle-advsearch collapsed" data-toggle="collapse"
+                                           data-target="#advanced_search"><span class="btn-toggle-advsearch-label">詳細検索</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-12 col-sm-2 advsearchbtn-area hidden-xs">
+                                <a class="btn-toggle-advsearch collapsed" data-toggle="collapse"
+                                   data-target="#advanced_search"><span class="btn-toggle-advsearch-label">閉じる</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="researcherName" id="researcherName"
+               value=""/>
+        <input type="hidden" name="hasLinkToFullText" id="hasLinkToFullText"
+               value=""/>
+        <input type="hidden" name="rdProgramType" id="rdProgramType" value=""/>
+        <input type="hidden" name="dataSourceType" id="dataSourceType"
+               value=""/>
+        <input type="hidden" name="resourceType" id="resourceType"
+               value=""/>
+        <input type="hidden" name="languageType" id="languageType"
+               value=""/>
+        <input type="hidden" name="institution" id="institution"
+               value=""/>
+        <input type="hidden" name="department" id="department"
+               value=""/>
+        <input type="hidden" name="jobTitle" id="jobTitle"
+               value=""/>
+        <input type="hidden" name="numberOfResearchProjects" id="numberOfResearchProjects"
+               value=""/>
+        <input type="hidden" name="numberOfResearchProducts" id="numberOfResearchProducts"
+               value=""/>
+    </form>
+</div>
+    <div class="servicestop_information">
+        <!--<a id="notification" href="https://support.nii.ac.jp/ja/news/cinii/20210706" style="color : red;font-size: 1.2em;">【4/18更新】CiNii ArticlesのCiNii Researchへの統合について</a>--><div id="servicestop_information"><ul><li><a href="https://support.nii.ac.jp/ja/news/cinii/20260330">2025年度のCiNii Books機能統合対応を完了いたしました</a></li><li><a href="https://labs.ci.nii.ac.jp/detail-knowledgegraph.html">CiNii Researchナレッジグラフ検索機能（試行版）をCiNii Labsにて公開しました</a></li><li><a href="https://support.nii.ac.jp/ja/cir/researchdata_harvest">【2025年11月26日更新】「研究データ」「根拠データ」の収録について</a></li><li><a href="https://support.nii.ac.jp/ja/news/cinii/20260310">JaLCからのJxivプレプリントの収録、およびNDLサーチからの収録対象の追加について</a></li><li><a href="https://support.nii.ac.jp/ja/news/cir/20260317">CiNiiのサービスに関するアンケートを実施中です（期間：2026年3月17日(火)から2026年4月16日(木)まで）</a></li></ul></div>
+    </div>
+<!-- end of div#searchbox -->
+
+<script type="text/javascript">
+    initSearchBox(false);
+    //--This function is to set the initial view of the search box, search mode, and the advanced search is opened or closed.--
+    //--So please change the arguments dynamically as the situation demands.
+    //--1st argument: 'article' or 'author' or 'fulltext' --
+    //--2nd argument: boolean, FALSE is to be closed. TRUE is to be opened.
+</script>
+    <div class="container-hasSubnav">
+        <div class="maincontents">
+            <div class="metaDataBlock" id="itemdetail" tabindex="-1">
+                <div class="itemheading">
+                    <h1 class="paper_class entry-title">
+                        <span class="ja">Advances and Open Problems in Federated Learning</span>
+                    </h1>
+                    <div class="item_additional show-all">
+        <a href="https://doi.org/10.1561/2200000083"
+           class="availableLink "
+           target="_blank"
+           onclick="sendEventAllWithDomain('BTN:DOI', 'https://doi.org/10.1561/2200000083');"
+        >
+            DOI
+        </a>
+        <a href="https://www.emerald.com/ftmal/article-pdf/14/1-2/1/11147179/2200000083en.pdf"
+           class="availableLink "
+           target="_blank"
+           onclick="sendEventAllWithDomain('BTN:PDF', 'https://www.emerald.com/ftmal/article-pdf/14/1-2/1/11147179/2200000083en.pdf');"
+        >
+            PDF
+        </a>
+
+
+                            <a class="item_tag tag-cited" href="#citations_container" onclick="sendEvent('被引用文献数');" >被引用文献16件</a>
+                    </div>
+                </div>
+
+                <div class="listContainer tileList">
+                    <ul>
+                            <li>
+                                <div class="listitem xfolkentry">
+                                    <dl class="author_class">
+                                        <dt class="item_mainTitle item_title authorname">
+                                                <a href="/crid/1380013248226806044" class="taggedlink" onclick="sendEvent('著者名');">
+                                                    <span>Peter Kairouz</span>
+                                                </a>
+                                        </dt>
+                                        <dd class="authorrole">
+                                        </dd>
+                                        <dd class="authoraffiliation">
+                                                <span>Google Research, USA</span>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="listitem xfolkentry">
+                                    <dl class="author_class">
+                                        <dt class="item_mainTitle item_title authorname">
+                                                <a href="/crid/1380294646686146432" class="taggedlink" onclick="sendEvent('著者名');">
+                                                    <span>H. Brendan McMahan</span>
+                                                </a>
+                                        </dt>
+                                        <dd class="authorrole">
+                                        </dd>
+                                        <dd class="authoraffiliation">
+                                                <span>Google Research, USA</span>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </li>
+                    </ul>
+                </div>
+
+                    <div class="dataContainer">
+                        <h2 class="dataSectionTitle">書誌事項</h2>
+                        <div class="metadataLists">
+        <dl class="mdlist-item">
+    <dt class="key">公開日</dt>
+    <dd class="value">2021-06-23</dd>
+    </dl>
+
+    
+    
+    <dl class="mdlist-item">
+    <dt class="key">DOI</dt>
+    <dd class="value">        <ul>
+                <li>        10.1561/2200000083
+</li>
+        </ul>
+</dd>
+    </dl>
+        <dl class="mdlist-item">
+    <dt class="key">公開者</dt>
+    <dd class="value">Emerald</dd>
+    </dl>
+
+                        </div>
+                    </div>
+
+                    <div class="dataContainer">
+                        <h2 class="dataSectionTitle">この論文をさがす</h2>
+                        <div class="metadataLists externallink">
+                            <ul class="clearfix">
+                                    <li class="externallinkS" style="background-image:url('/static/images/exIco-ciniiBooks@2x.png');">
+                                        <a target="_blank" href="https://ci.nii.ac.jp/books/openurl/query?ctx_ver=Z39.88-2004&amp;url_ver=Z39.88-2004&amp;service=CiNiiResearch&amp;rft.issn=19358237" onclick="sendEvent('CiB');" >CiNii Books</a>
+                                    </li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+    <div class="dataContainer">
+        <h2 class="dataSectionTitle">説明</h2>
+        <div class="metadataLists abstract">
+                <p class="entry-content">
+                        &lt;jats:p&gt;Federated learning (FL) is a machine learning setting where many clients (e.g., mobile devices or whole organizations) collaboratively train a model under the orchestration of a central server (e.g., service provider), while keeping the training data decentralized. FL embodies the principles of focused data collection and minimization, and can mitigate many of the systemic privacy risks and costs resulting from traditional, centralized machine learning and data science approaches. Motivated by the explosive growth in FL research, this monograph discusses recent advances and presents an extensive collection of open problems and challenges.&lt;/jats:p&gt;
+                </p>
+        </div>
+    </div>
+
+                    <div class="listContainer">
+                        <h2 class="listSectionTitle">収録刊行物</h2>
+                        <ul>
+                            <li>
+                                <div class="listitem xfolkentry">
+                                    <dl class="journal_class">
+                                        <dt class="item_mainTitle item_title">
+                                                <a href="https://cir.nii.ac.jp/all?q=Foundations%20and%20Trends%20in%20Machine%20Learning" class="taggedlink"
+                                                   onclick="sendEvent('収録刊行物タイトル');"
+                                                >Foundations and Trends in Machine Learning</a>
+                                        </dt>
+                                        <dd>
+                                            <p class="item_extraData containedjournaldata">
+                                                <span>
+                                                    Foundations and Trends in Machine Learning
+                                                        14
+                                                        (1-2),
+                                                        1-210,
+                                                        2021-06-23
+                                                </span>
+                                            </p>
+                                            <p class="item_extraData containedjournal_org">
+                                                <span class="academic_society">
+                                                    Emerald
+                                                </span>
+                                            </p>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+            </div>
+
+    <script type="text/javascript">
+        const jsrender_messages = {
+            book_image: '{0} の書影',
+            available_libraries: '所蔵館 {0}館',
+        };
+    </script>
+        <script id="related_item_jsrender" type="text/x-jsrender">
+            <ul>
+                {{for items}}
+                    <li>
+                        <div class="listitem xfolkentry">
+                            {{!-- アイコンの判別 --}}
+                            {{if dataType == "Dataset"}}
+                                <dl class="data_class">
+                            {{else dataType == "Article"}}
+                                <dl class="paper_class">
+                            {{else dataType == "Book"}}
+                                {{if ncidArticle}}
+                                    <dl class="journal_class">
+                                {{else}}
+                                    <dl class="book_class">
+                                {{/if}}
+                            {{else dataType == "Dissertation"}}
+                                <dl class="paper-dissertation_class">
+                            {{else dataType == "Project"}}
+                                <dl class="research_class">
+                            {{else dataType == "Product"}}
+                                <dl class="other_class">
+                            {{else dataType == "OtherWorks"}}
+                                <dl class="uncategorized_class">
+                            {{else}}
+                                <dl class="other_class">
+                            {{/if}}
+
+                            {{!-- タイトル --}}
+                                <dt class="item_mainTitle item_title">
+                                    <a href="/crid/{{:localIdentifier}}" onclick="sendEvent('関連:タイトル')" class="taggedlink">
+                                        {{>title}}
+                                    </a>
+                                </dt>
+                                {{!-- 書影 --}}
+                                {{if dataType == "Book"}}
+                                    {{if isbn}}
+                                        {{!-- script.js でisbnの画像を取得できるまでは非表示にするため、 display:none を設定する --}}
+                                        <dd class="imageDD" style="display: none">
+                                            <img id="{{:isbn}}" src="" class="item_image"
+                                                 onerror="this.src='/static/images/nopreview.jpg'">
+                                        </dd>
+                                    {{/if}}
+                                {{/if}}
+                                <dd>
+                                    {{!-- 研究データ --}}
+                                    {{if dataType == "Dataset" || dataType == "Product" }}
+                                        <p class="item_data">
+                                            {{if creatorList && creatorList.length !== 0}}
+                                                <span class="author">
+                                                    {{for creatorList}}{{if crid.length > 0}}<a href="/crid/{{>crid}}" class="taggedlink" onclick="sendEvent('関連:人物名')">{{>name}}</a>{{else}}{{>name}}{{/if}}{{if #index+1 != #parent.data.length}}; {{/if}}{{/for}}
+                                                </span>
+                                            {{/if}}
+                                            <span>
+                                                {{if publicationName }}{{>publicationName}}{{/if}}
+                                                {{if publicationVolume }}{{>publicationVolume}}{{/if}}
+                                                {{if publicationNumber }}({{>publicationNumber}}){{/if}}{{if publicationVolume && publicationNumber}},{{/if}}
+                                                {{if publicationPages }}{{>publicationPages}},{{/if}}
+                                                {{if publicationIssued }}{{>publicationIssued}}{{/if}}
+                                                {{if modified }}{{>modified}}{{/if}}
+                                            </span>
+                                        </p>
+                                        {{if dataType == "Dataset"
+                                            && (subject.length > 0 || resourceType || repository.length > 0 || accessRights) }}
+                                        <p class="item_data">
+                                            {{if subject.length > 0 }}
+                                            <span>{{>subject.join(', ')}}</span>
+                                            {{/if}}
+                                            {{if resourceType }}
+                                            <span>{{>resourceType}}</span>
+                                            {{/if}}
+                                            {{if repository.length > 0 }}
+                                            <span>{{>repository.join(', ')}}</span>
+                                            {{/if}}
+                                            {{if accessRights }}
+                                            <span>{{>accessRights}}</span>
+                                            {{/if}}
+                                        </p>
+                                        {{/if}}
+                                        <p class="item_snipet item_summry description">
+                                            {{if description}}
+                                                {{>description.substring(0, 200)}}
+                                            {{/if}}
+                                        </p>
+
+                                    {{!-- 論文 --}}
+                                    {{else dataType == "Article"}}
+                                        <p class="item_data">
+                                            {{if creatorList && creatorList.length !== 0}}
+                                                <span class="author">
+                                                    {{for creatorList}}{{if crid.length > 0}}<a href="/crid/{{>crid}}" class="taggedlink" onclick="sendEvent('関連:人物名')">{{>name}}</a>{{else}}{{>name}}{{/if}}{{if #index+1 != #parent.data.length}}; {{/if}}{{/for}}
+                                                </span>
+                                            {{/if}}
+                                            <span>
+                                                {{if publicationName }}{{>publicationName}}{{/if}}
+                                                {{if publicationVolume }}{{>publicationVolume}}{{/if}}
+                                                {{if publicationNumber }}({{>publicationNumber}}){{/if}}{{if publicationVolume && publicationNumber}},{{/if}}
+                                                {{if publicationPages }}{{>publicationPages}},{{/if}}
+                                                {{if publicationIssued }}{{>publicationIssued}}{{/if}}
+                                            </span>
+                                        </p>
+                                        <p class="item_snipet item_summry description">
+                                            {{if description}}
+                                                {{>description.substring(0, 200)}}
+                                            {{/if}}
+                                        </p>
+
+                                    {{!-- 本 --}}
+                                    {{else dataType == "Book"}}
+                                        <p class="item_data">
+                                            {{if creatorList && creatorList.length !== 0}}
+                                                <span class="author">
+                                                    {{for creatorList}}{{if crid.length > 0}}<a href="/crid/{{>crid}}" class="taggedlink" onclick="sendEvent('関連:人物名')">{{>name}}</a>{{else}}{{>name}}{{/if}}{{if #index+1 != #parent.data.length}}; {{/if}}{{/for}}
+                                                </span>
+                                            {{/if}}
+                                            <span>
+                                                {{if bookPublisher }}{{>bookPublisher}}{{/if}}
+                                                {{if publicationDate }}{{>publicationDate}}{{/if}}
+                                                {{if edition }}{{>edition}}{{/if}}
+                                            </span>
+                                        </p>
+                                        {{if materialDesignation.length > 0}}
+                                            <p class="item_data">
+                                                <span>
+                                                    {{>materialDesignation}}
+                                                </span>
+                                            </p>
+                                        {{/if}}
+                                        <p class="item_snipet item_summry description">
+                                            {{if description}}
+                                                {{>description.substring(0, 200)}}
+                                            {{/if}}
+                                        </p>
+
+                                    {{!-- 博士論文 --}}
+                                    {{else dataType == "Dissertation"}}
+                                        <p class="item_data">
+                                            {{if creatorList && creatorList.length !== 0}}
+                                                <span class="author">
+                                                    {{for creatorList}}{{if crid.length > 0}}<a href="/crid/{{>crid}}" class="taggedlink" onclick="sendEvent('関連:人物名')">{{>name}}</a>{{else}}{{>name}}{{/if}}{{if #index+1 != #parent.data.length}}; {{/if}}{{/for}}
+                                                </span>
+                                            {{/if}}
+                                            <span>
+                                                {{if degreeAwardInstitution }}{{>degreeAwardInstitution}}{{/if}}
+                                                {{if degreeName }}{{>degreeName}}{{/if}}
+                                                {{if degreeAwardNumber }}{{>degreeAwardNumber}}{{/if}}
+                                                {{if degreeAwardDate }}{{>degreeAwardDate}}{{/if}}
+                                            </span>
+                                        </p>
+                                        <p class="item_snipet item_summry description">
+                                            {{if description}}
+                                                {{>description.substring(0, 200)}}
+                                            {{/if}}
+                                        </p>
+
+                                    {{!-- プロジェクト --}}
+                                    {{else dataType == "Project"}}
+                                        <p class="item_data">
+                                                {{if researchers && researchers.length !== 0}}
+                                                    <span class="author">{{for researchers}}{{if #index != 0}}; {{/if}}{{if personIdentifier.length > 0}}<a href="/crid/{{>personIdentifier}}" class="taggedlink" onclick="sendEvent('関連:人物名')">{{>name}}</a>{{else}}{{>name}}{{/if}}{{/for}}</span>
+                                                {{/if}}
+                                            <span>
+                                                {{>institutionList}}
+                                                {{if period }}{{>period}}{{/if}}
+                                                {{if funderName }}{{>funderName}}{{/if}}
+                                                {{if fundingProgram}}
+                                                    ({{>fundingProgram}})
+                                                {{/if}}
+                                                {{>projectRoleList}}
+                                            </span>
+                                        </p>
+
+                                    {{!-- 未分類成果物（被引用文献または参考文献） --}}
+                                    {{else dataType == "OtherWorks"}}
+                                        <p class="item_data">
+                                            {{if creatorList && creatorList.length !== 0}}
+                                                <span class="author">
+                                                    {{for creatorList}}{{if crid.length > 0}}<a href="/crid/{{>crid}}" class="taggedlink" onclick="sendEvent('関連:人物名')">{{>name}}</a>{{else}}{{>name}}{{/if}}{{if #index+1 != #parent.data.length}}; {{/if}}{{/for}}
+                                                </span>
+                                            {{/if}}
+                                            <span>
+                                                {{if publicationName }}{{>publicationName}}{{/if}}
+                                                {{if publicationVolume }}{{>publicationVolume}}{{/if}}
+                                                {{if publicationNumber }}({{>publicationNumber}}){{/if}}{{if publicationVolume && publicationNumber}},{{/if}}
+                                                {{if publicationPages }}{{>publicationPages}},{{/if}}
+                                                {{if publicationIssued }}{{>publicationIssued}}{{/if}}
+                                                {{if modified }}{{>modified}}{{/if}}
+                                            </span>
+                                        </p>
+                                        {{if subject.length > 0 || resourceType || repository.length > 0 || accessRights }}
+                                        <p class="item_data">
+                                            {{if subject.length > 0 }}
+                                            <span>{{>subject.join(', ')}}</span>
+                                            {{/if}}
+                                            {{if resourceType }}
+                                            <span>{{>resourceType}}</span>
+                                            {{/if}}
+                                            {{if repository.length > 0 }}
+                                            <span>{{>repository.join(', ')}}</span>
+                                            {{/if}}
+                                            {{if accessRights }}
+                                            <span>{{>accessRights}}</span>
+                                            {{/if}}
+                                        </p>
+                                        {{/if}}
+                                        <p class="item_snipet item_summry description">
+                                            {{if description}}
+                                                {{>description.substring(0, 200)}}
+                                            {{/if}}
+                                        </p>
+
+                                    {{!-- その他 --}}
+                                    {{else}}
+                                        <p class="item_data">
+                                            {{if creatorList && creatorList.length !== 0}}
+                                                <span class="author">
+                                                    {{for creatorList}}{{if crid.length > 0}}<a href="/crid/{{>crid}}" class="taggedlink" onclick="sendEvent('関連:人物名')">{{>name}}</a>{{else}}{{>name}}{{/if}}{{if #index+1 != #parent.data.length}}; {{/if}}{{/for}}
+                                                </span>
+                                            {{/if}}
+                                        </p>
+                                        <p class="item_snipet item_summry description">
+                                            {{if description}}
+                                                {{>description.substring(0, 200)}}
+                                            {{/if}}
+                                        </p>
+                                    {{/if}}
+
+                                    {{!-- item_additional --}}
+                                    <p class="item_additional">
+                                        {{if dataType == "Dataset" || dataType == "Article" ||
+                                            dataType == "Book" || dataType == "Dissertation" || dataType == "Product" ||
+                                            dataType == "OtherWorks"}}
+                                            {{for fullTextLink}}
+                                                <span class="availableLinkGroup">
+                                                    {{>label}}
+                                                    {{>linkCount}}
+                                                </span>
+                                            {{/for}}
+                                            {{for identifierViewListForButton}}
+                                                <a href="{{>location}}" class="availableLink" target="_blank"
+                                                onclick="sendEventAllWithDomain('関連:{{>gaLabel}}', '{{>location}}')">{{>displayLabel}}</a>
+                                            {{/for}}
+                                            {{if remainingButtonCountLabel}}
+                                                <span class="availableLinksNum">{{>remainingButtonCountLabel}}</span>
+                                            {{/if}}
+                                        {{/if}}
+                                        {{!-- End of productIdentifier --}}
+
+                                        {{!-- item_tag --}}
+                                        {{if dataType == "Article" || dataType == "Dissertation"}}
+                                            {{if hasDatasetLabel}}
+                                                <span class="item_tag tag-data">{{>hasDatasetLabel}}</span>
+                                            {{/if}}
+                                        {{/if}}
+
+                                        {{if dataType == "Article"}}
+                                            {{if quoteSourceCountLabel}}
+                                                <span class="item_tag tag-cited">{{>quoteSourceCountLabel}}</span>
+                                            {{/if}}
+                                        {{/if}}
+
+                                        {{if dataType == "Article"}}
+                                            {{if referencesCountLabel}}
+                                                <span class="item_tag tag-reference">{{>referencesCountLabel}}</span>
+                                            {{/if}}
+                                        {{/if}}
+
+                                        {{if dataType == "Book"}}
+                                            {{if libraryOwnerCount > 0}}
+                                                <a class="item_tag tag-library hide"
+                                                   href="/crid/{{:localIdentifier}}/holdings#item-detail-tab"
+                                                   data-library-owner-count="{{:libraryOwnerCount}}"
+                                                   onclick="sendEvent('関連:BTN:所蔵')"></a>
+                                             {{/if}}
+                                        {{/if}}
+                                        {{!-- End of item_tag --}}
+                                    </p>
+                                    {{!-- End of item_additional --}}
+                                </dd>
+                            </dl>
+                        </div>
+                    </li>
+                {{/for}}
+             </ul>
+        </script>
+    <div class="listContainer">
+        <div id="citations_container" class="hideDiv">
+            <h2 class="listSectionTitle">被引用文献 (16)<a href="https://support.nii.ac.jp/ja/cir/manual_articles_detail#reference" target="_blank" class="notelink" onclick="sendEvent('被引用文献*注記');">*注記</a></h2>
+            <div id="citations_div"></div>
+            <div id="related_citations_loader" class="loader" style="display: none">読み込み中...</div>
+            <a href="javascript:void(0);" id="btn_show_more_citations" class="seeMoreLink"
+               onclick="show_more_citations('ja', '1360294646686146432'); sendEvent('被引用文献もっと見る');"
+            >もっと見る</a>
+        </div>
+    </div>
+
+        </div>
+
+        <div class="side_navigation">
+        <div class="relateditem">
+                <div class="relateditem_section social" id="social">
+                    <ul class="snsb clearfix">
+                        <li style="float:left"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="Advances and Open Problems in Federated Learning | CiNii Research" data-url="https://cir.nii.ac.jp/crid/1360294646686146432?lang=ja" data-hashtags="CiNii" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></li>
+                        <li style="float:left">
+                            <div id="fb-root"></div>
+                                <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v9.0" nonce="6syUsLCq"></script>
+                            <div class="fb-like" data-href="https://cir.nii.ac.jp/crid/1360294646686146432" data-width="70" data-layout="box_count" data-action="like" data-size="small" data-share="false"></div>
+                        </li>
+                    </ul>
+                </div>
+
+
+    <script type="text/javascript">
+        const RELATED_ARTICLE_VERSIONS_JSRENDER_CONST = {
+            title: 'バージョン情報 ({0})',
+            preprintVersionLabel: 'プレプリント',
+            recordVersionLabel: '出版社版',
+            doiLabel: 'DOI',
+            seePrevLabel: '前を表示',
+            seeNextLabel: '後を表示',
+            seeAllLabel: 'すべて表示',
+            recordVersionGaLabel: 'バージョン情報:出版社版',
+            preprintVersionGaLabel: 'バージョン情報:プレプリント版',
+            doiLinkGaLabel: 'バージョン情報:LINK:DOI',
+        };
+    </script>
+        <script id="related_article_versions_rendering_template" type="text/x-jsrender">
+            <div class="relateditem_section paperversions hidden-before hidden-after">
+                <h2 id="relatedArticleVersionsTitle" class="heading"></h2>
+
+                {{if hasPreviousVersions}}
+                    <a class="btn btn-expand btn-expand-before"></a>
+                {{/if}}
+
+                <ul class="paperversionlist">
+                    {{for previousVersions}}
+                        <li class="paperversionitem before">
+                            <a class="linktothisversion" href="{{:cirPermLink}}">
+                                <span class="versionname {{:versionType}}"></span>
+                                <span class="date">{{:publicationIssued}}</span>
+                            </a>
+
+                            {{if doi && doiExternalLink}}
+                                <dl>
+                                    <dt class="doi-label"></dt>
+                                    <dd>
+                                        <a class="doi-link" href="{{:doiExternalLink}}" target="_blank">{{:doi}}</a>
+                                    </dd>
+                                </dl>
+                            {{/if}}
+                        </li>
+                    {{/for}}
+
+                    {{for displayVersions}}
+                        <li class="paperversionitem show {{if isReferenceVersion}}current{{/if}}">
+                            {{if cirPermLink}}
+                                <a class="linktothisversion" href="{{:cirPermLink}}">
+                                    <span class="versionname {{:versionType}}"></span>
+                                    <span class="date">{{:publicationIssued}}</span>
+                                </a>
+                            {{else}}
+                                <span class="linktothisversion">
+                                    <span class="versionname {{:versionType}}"></span>
+                                    <span class="date">{{:publicationIssued}}</span>
+                                </span>
+                            {{/if}}
+
+                            {{if doi && doiExternalLink}}
+                                <dl>
+                                    <dt class="doi-label"></dt>
+                                    <dd>
+                                        <a class="doi-link" href="{{:doiExternalLink}}" target="_blank">{{:doi}}</a>
+                                    </dd>
+                                </dl>
+                            {{/if}}
+                        </li>
+                    {{/for}}
+
+                    {{for nextVersions}}
+                        <li class="paperversionitem after">
+                            <a class="linktothisversion" href="{{:cirPermLink}}">
+                                <span class="versionname {{:versionType}}"></span>
+                                <span class="date">{{:publicationIssued}}</span>
+                            </a>
+
+                            {{if doi && doiExternalLink}}
+                                <dl>
+                                    <dt class="doi-label"></dt>
+                                    <dd>
+                                        <a class="doi-link" href="{{:doiExternalLink}}" target="_blank">{{:doi}}</a>
+                                    </dd>
+                                </dl>
+                            {{/if}}
+                        </li>
+                    {{/for}}
+                </ul>
+
+                {{if hasNextVersions}}
+                    <a class="btn btn-expand btn-expand-after"></a>
+                {{/if}}
+
+                {{if hasPreviousVersions || hasNextVersions}}
+                    <a class="btn btn-expand btn-expand-all"></a>
+                {{/if}}
+            </div>
+        </script>
+    <div id="related_article_versions_rendering_container"></div>
+
+
+
+            <div id="papercodes" class="relateditem_section papercodes">
+                <h2 class="heading">
+詳細情報                    <a class="button-help" href="https://support.nii.ac.jp/ja/cir/manual_articles_detail#K"
+                       target="_blank"
+                       onclick="sendEvent('詳細情報ヘルプ');">詳細情報について</a>
+                </h2>
+                <ul class="detailcodeslist">
+                        <li class="papercodesitem">
+                            <dl>
+                                <dt>CRID</dt>
+                                <dd>
+                                        1360294646686146432
+                                </dd>
+                            </dl>
+                        </li>
+                        <li class="papercodesitem">
+                            <dl>
+                                <dt>DOI</dt>
+                                <dd>
+                                        <a href="https://doi.org/10.1561/2200000083" target="_blank"
+                                           onclick="sendEventWithDomain('LINK:DOI', 'https://doi.org/10.1561/2200000083');"
+                                        >10.1561/2200000083</a>
+                                </dd>
+                            </dl>
+                        </li>
+                        <li class="papercodesitem">
+                            <dl>
+                                <dt>ISSN</dt>
+                                <dd>
+                                        19358245
+                                </dd>
+                                <dd>
+                                        19358237
+                                </dd>
+                            </dl>
+                        </li>
+                        <li class="papercodesitem">
+                            <dl>
+                                <dt>Web Site</dt>
+                                <dd>
+                                        <a href="https://www.emerald.com/ftmal/article-pdf/14/1-2/1/11147179/2200000083en.pdf" target="_blank"
+                                           onclick="sendEventWithDomain('LINK:WebSite', 'https://www.emerald.com/ftmal/article-pdf/14/1-2/1/11147179/2200000083en.pdf');"
+                                        >https://www.emerald.com/ftmal/article-pdf/14/1-2/1/11147179/2200000083en.pdf</a>
+                                </dd>
+                            </dl>
+                        </li>
+
+
+
+
+
+
+
+                        <li class="papercodesitem papercodesitem-datasrc">
+                            <dl>
+                                <dt class="key">データソース種別</dt>
+                                <dd class="value">
+                                    <ul class="papercodesitem-datasrclist">
+                                            <li class="papercodesitem-datasrclistitem">Crossref</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                        </li>
+
+
+                </ul>
+            </div>
+
+
+                <div id="writingformat" class="relateditem_section writingformat">
+                    <h2 class="heading">書き出し</h2>
+                    <ul class="exportlist">
+                        <li><div class="ie_bug_fixer"><a href="/crid/1360294646686146432/refworks" onclick="sendEvent('RefWorks');" target="RefWorksMain">RefWorksに書き出し</a></div></li>
+                        <li><div class="ie_bug_fixer"><a href="/crid/1360294646686146432/endnote" onclick="sendEvent('EndNote');" target="EndNoteMain">EndNoteに書き出し</a></div></li>
+                        <li><div class="ie_bug_fixer"><a href="/crid/1360294646686146432/mendeley" onclick="sendEvent('Mendeley');" target="MendeleyMain">Mendeleyに書き出し</a></div></li>
+                        <li><div class="ie_bug_fixer"><a href="/crid/1360294646686146432.rdf" onclick="sendEvent('RDF/XML');" target="_blank">RDFで書き出し</a></div></li>
+                        <li><div class="ie_bug_fixer"><a href="/crid/1360294646686146432.bix" onclick="sendEvent('Refer/BibIX');" target="_blank">Refer/BibIXで表示</a></div></li>
+                        <li><div class="ie_bug_fixer"><a href="/crid/1360294646686146432.ris" onclick="sendEvent('RIS');" target="_blank">RISで表示</a></div></li>
+                        <li><div class="ie_bug_fixer"><a href="/crid/1360294646686146432.bib" onclick="sendEvent('BibTex');" target="_blank">BibTeXで表示</a></div></li>
+                        <li><div class="ie_bug_fixer"><a href="/crid/1360294646686146432.tsv" onclick="sendEvent('TSV');" target="_blank">TSVで表示</a></div></li>
+                        <li><div class="ie_bug_fixer"><a href="/crid/1360294646686146432.csv" onclick="sendEvent('CSV');" target="_blank">CSVで表示</a></div></li>
+                        <li><div class="ie_bug_fixer"><a href="/crid/1360294646686146432.json" onclick="sendEvent('RDF/JSON-LD');" target="_blank">JSON-LDで表示</a></div></li>
+                    </ul>
+                </div>
+
+                <script type="text/javascript"	src="https://api.altmetrics.ceek.jp/v1.js" charset="UTF-8" async></script>
+                <div class="relateditem_section altmetrics" id="altmetrics">
+                        <span class="ceek-altmetrics-badge" data-doi="10.1561/2200000083" ></span>
+                </div>
+                <script type="text/javascript">
+                    const observer = new MutationObserver((mutations) => {
+                        mutations.forEach((mutation => {
+                            if (mutation.addedNodes[0].nodeName === "A") {
+                                mutation.addedNodes[0].target = "_blank";
+                                mutation.addedNodes[0].rel = "noopener noreferrer";
+                                addAltmetricsGaEventListener(mutation.addedNodes[0]);
+                            }
+                        }))
+                    });
+                    const ceekAltmetricsBadge = document.getElementsByClassName("ceek-altmetrics-badge");
+                    if(ceekAltmetricsBadge.length > 0 && ceekAltmetricsBadge.length < 3){
+                        const ceekAltmetricsBadgeItem = document.getElementsByClassName("ceek-altmetrics-badge").item(ceekAltmetricsBadge.length - 1);
+                        observer.observe(ceekAltmetricsBadgeItem,{childList: true});
+                    }
+                </script>
+
+        <h2 class="heading">問題の指摘</h2>
+        <form name="feedbackform" action="/feedback/form" method="get" target="_self" id="feedBackForm">
+            <input type="hidden" name="crid" id="feedBackFormId">
+            <input type="hidden" name="type" id="feedBackFormType">
+            <div class="relateditem_section writingformat">
+                <ul class="exportlist">
+                        <li>
+                            <a href="javascript:void(0)"
+                               onclick="submitFeedBackForm(1020);
+                                        sendEvent('論文情報の修正');"
+                               class="feedbackbtn">
+論文情報の修正                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"
+                               onclick="submitFeedBackForm(9999);
+                                        sendEvent('その他');"
+                               class="feedbackbtn">
+その他                            </a>
+                        </li>
+                </ul>
+            </div>
+        </form>
+
+            <script>
+                function submitFeedBackForm(type) {
+                    var form = document.getElementById("feedBackForm");
+                    document.getElementById("feedBackFormId").value = "1360294646686146432";
+                    document.getElementById("feedBackFormType").value = type;
+                    form.submit();
+                }
+            </script>
+        </div>
+<div id="advertising">
+    <link href="/static/slick/slick.css?ebe1c1c360fe5088c5ff762755bbde31" rel="stylesheet" type="text/css" />
+    <link href="/static/slick/slick-theme.css?ebe1c1c360fe5088c5ff762755bbde31" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        #advertising {
+            padding-bottom: 24px;
+        }
+        .slider {
+            width: 208px;
+            margin: 0 auto;
+        }
+        @media (max-width: 767px) {
+            ul.slider {
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+            ul.slick-dots {
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+        }
+        .slick-slide img {
+            width: 200px;
+        }
+    </style>
+    <div id="promotion" class="relateditem_section promotion">
+<ul class="slider" style="display: block; margin: 0 auto !important;">
+<li><a href="/redirect?url=https%3A%2F%2Fjp.surveymonkey.com%2Fr%2Fcir-enquete-2025" onclick="sendAdEvent('広告_1775001273_0_詳細_論文_ja_R');" title="CiNii利用者アンケート" target="_blank"><img data-lazy="/static/ad/image/ad_ja_1775001273_0.png"></a></li>
+<li><a href="/redirect?url=https%3A%2F%2Fevent.nii.ac.jp%2Fevent%2F15609%3Futm_source%3Dcir%26utm_medium%3Dbanner%26utm_campaign%3Doh2026" onclick="sendAdEvent('広告_1775001273_1_詳細_論文_ja_R');" title="オープンハウス2026" target="_blank"><img data-lazy="/static/ad/image/ad_ja_1775001273_1.png"></a></li>
+</ul>
+</div>
+
+</div>
+        </div>
+    </div>
+    <a class="gotop center-block visible-xs">ページトップへ</a>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/1.0.7/jsrender.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            show_more_citations('ja', '1360294646686146432'); //被引用文献 
+            
+            
+            
+            
+            
+            
+            
+            
+        });
+    </script>
+</main>
+    <div class="balloon"
+         id="note-personsearch-popup"
+         role="dialog"
+         aria-label="人物検索機能について"
+         tabindex="-1">
+現時点での人物検索の対象は、科研費報告書やresearchmapの記載に基づき研究者番号が推定された研究者等約30万人です。<span class="moreinfo"><a href="https://support.nii.ac.jp/ja/cir/faq/about_data#t93n2266" target="_blank" onclick="sendGaEvent('詳細', '論文', '人物検索補足説明', false, null);">※詳しい説明はこちら</a></span>    </div>
+    <footer class="footer">
+        <div class="footer-wrap">
+            <div class="displaymode visible-xs">
+                <div class="modelist">
+                    <div class="modeitem">
+                        <span id="btnSP" class="selected">スマートフォン版</span>
+                    </div>
+                    |
+                    <div class="modeitem">
+                        <a id="btnPC" href="#"
+                           onclick="selectModePc();return false;">PC版</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-linkblock ftb-about">
+                <ul class="ft-group">
+                    <li>
+                        <p class="ft-heading">CiNiiについて</p>
+                        <ul class="ft-list">
+                            <li><a href="https://support.nii.ac.jp/ja/cinii/cinii_outline"
+                                   onclick="sendEvent('CiNiiについて')">
+                                    CiNiiについて</a></li>
+                            <li><a href="https://support.nii.ac.jp/ja/cir/cir_db"
+                                   onclick="sendEvent('収録データベース一覧')">
+                                    収録データベース一覧</a></li>
+                            <li><a href="https://support.nii.ac.jp/ja/cinii/terms"
+                                   onclick="sendEvent('利用規約・プライバシーポリシー')">
+                                    利用規約・プライバシーポリシー</a></li>
+                            <li>
+<a href="https://support.nii.ac.jp/ja/cinii/terms" onclick="sendGaEvent('詳細', '論文', '個人情報の扱いについて', false, null);">個人情報の扱いについて</a>                            </li>
+                            <li><a href="https://support.nii.ac.jp/ja/cinii/contact"
+                                   onclick="sendEvent('お問い合わせ')">
+                                    お問い合わせ</a></li>
+                            <li><a href="https://www.nii.ac.jp/"
+                                   onclick="sendEvent('国立情報学研究所 (NII)')">
+                                    国立情報学研究所 (NII)</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-linkblock ftb-help">
+                <ul class="ft-group">
+                    <li>
+                        <p class="ft-heading">ヘルプ</p>
+                        <ul class="ft-list">
+                            <li><a href="https://support.nii.ac.jp/ja/cir/manual_outline"
+                                   onclick="sendEvent('ヘルプ-CiR')">CiNii Research</a>
+                            </li>
+                            <li><a href="https://support.nii.ac.jp/ja/cib/manual_outline"
+                                   onclick="sendEvent('ヘルプ-CiB')">CiNii Books - 大学図書館の本をさがす</a>
+                            </li>
+                            </li>
+                            <li><a href="https://support.nii.ac.jp/ja/cinii/api/api_outline"
+                                   onclick="sendEvent('ヘルプ-メタデータ・API')">メタデータ・API</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-linkblock ftb-info">
+                <ul class="ft-group">
+                    <li><p class="ft-heading">新着情報</p>
+                        <ul class="ft-list">
+                            <li><a href="https://support.nii.ac.jp/ja/news/cinii"
+                                   onclick="sendEvent('お知らせ')">
+                                    お知らせ</a></li>
+                            <li><a href="https://support.nii.ac.jp/ja/news/cinii/feed"
+                                   onclick="sendEvent('RSS')">
+                                    RSS</a></li>
+                            <li><a href="http://twitter.com/cinii_jp">
+                                    Twitter</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer-linkblock ftb-service">
+                <ul class="ft-group">
+                    <li><p class="ft-heading">NIIのコンテンツサービス</p>
+                        <ul class="ft-list">
+                            <li><a href="https://kaken.nii.ac.jp/ja/"
+                                   onclick="sendEvent('FOOTER-KAKEN')">
+                                    KAKEN - 科学研究費助成事業データベース</a></li>
+                            <li><a href="https://irdb.nii.ac.jp/"
+                                   onclick="sendEvent('FOOTER-IRDB')">
+                                    IRDB - 学術機関リポジトリデータベース</a></li>
+                            <li><a href="https://reo.nii.ac.jp/"
+                                   onclick="sendEvent('FOOTER-NIIREO')">
+                                    NII-REO - 電子リソースリポジトリ</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    <div class="footer-logoblock sp">
+<a href="https://www.nii.ac.jp/" class="ft-logoname pc" onclick="sendGaEvent('詳細', '論文', 'NIIロゴ', false, null);">            <img
+                    src="/static/images/nii-logo-ls-jp.png"
+                    alt="NII 大学共同利用機関法人 情報•システム研究機構 国立情報学研究所"
+                    width="220"
+                    height="42"
+                    class="provider-logo"
+            />
+</a><a href="https://www.nii.ac.jp/" class="ft-logoname sp" onclick="sendGaEvent('詳細', '論文', 'NIIロゴ', false, null);">            <img
+                    src="/static/images/nii-logo.png"
+                    alt="NII"
+                    width="64"
+                    height="42"
+                    class="provider-logo"
+            />
+            <div class="provider-name">
+                    <span class="name-sub">大学共同利用機関法人 情報•システム研究機構</span>
+                <span class="name-main">国立情報学研究所</span>
+            </div>
+</a>        <div class="copylight">&copy; National Institute of Informatics</div>
+    </div>
+
+    </footer>
+
+    <script>
+        const GA_REQUEST_PATH = '/ga';
+        const REQUEST_METHOD = {POST: 'POST'}
+        const REQUEST_DATATYPE = {JSON: 'json'};
+        const REQUEST_CONTENT_TYPE = {APPLICATION_JSON: 'application/json'}
+        const GA_HIT_TYPE = {
+            PAGE_VIEW: 'pageview',
+            EVENT: 'event'
+        }
+        const GA_EVENT_ACTION = {
+            CLICK: 'click'
+        }
+        const UNDEFINED_ELEMENT = 'undefined';
+        const EVENT_TYPE = {
+            CLICK: 'click',
+            LOAD: 'load'
+        }
+        const LINK_ID = {
+            PC: 'btnPC',
+            SMART_PHONE: 'btnSP'
+        }
+        const A_TAG_NAME = 'A';
+        const INFORMATION_ID = 'notification';
+      function pageview(title) {
+          postPageViewToGoogleAnalytics(title, false);
+      }
+
+      function pageviewAll(title) {
+          postPageViewToGoogleAnalytics(title, true);
+      }
+
+      const postPageViewToGoogleAnalytics = (title, isSendMultiTracker) => {
+          axios.post(GA_REQUEST_PATH, {
+              hitType: GA_HIT_TYPE.PAGE_VIEW,
+              location: document.location.origin + document.location.pathname + document.location.search,
+              title: title,
+              sendMultiTracker: isSendMultiTracker,
+          }, {
+              headers:{
+                  'X-CSRF-TOKEN' : '82939cf2-fed8-4605-b7e0-5c2d7b5a8663'
+              }
+          }).then(response => console.log(response));
+      }
+
+      function sendEvent(label) {
+          postEventToGoogleAnalytics(label, false);
+      }
+
+      function sendAdEvent(label) {
+          postEventToGoogleAnalyticsWithoutDataTypePrefix(label, false);
+      }
+
+      function sendEventWithDomain(label, domain) {
+          postEventWithDomainToGoogleAnalytics(label, domain, false);
+      }
+
+      function sendEventAll(label) {
+          postEventToGoogleAnalytics(label, true);
+      }
+
+      function sendEventAllWithDomain(label, domain) {
+          postEventWithDomainToGoogleAnalytics(label, domain, true);
+      }
+
+        function sendGaEvent(category, dataType, elementName, multiTracker, domain) {
+            $.post({
+                url: '/ga',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    hitType: 'event',
+                    eventCategory: category,
+                    eventAction: 'click',
+                    eventLabel: `${dataType}_${elementName}`,
+                    sendMultiTracker: multiTracker,
+                    linkUrl: domain,
+                }),
+                headers:{
+                    'X-CSRF-TOKEN': '82939cf2-fed8-4605-b7e0-5c2d7b5a8663'
+                },
+                async: false,
+                timeout: 1500,
+            });
+        }
+
+      const postEventToGoogleAnalytics = (label, isSendMultiTracker) => {
+          $.ajax({
+              type: REQUEST_METHOD.POST,
+              url: GA_REQUEST_PATH,
+              dataType: REQUEST_DATATYPE.JSON,
+              contentType: REQUEST_CONTENT_TYPE.APPLICATION_JSON,
+              data: JSON.stringify({
+                  hitType: GA_HIT_TYPE.EVENT,
+                  eventCategory: '詳細',
+                  eventAction: GA_EVENT_ACTION.CLICK,
+                  eventLabel: '論文' + '_' + label,
+                  sendMultiTracker: isSendMultiTracker
+              }),
+              async : false, //ページ遷移の際、Firefoxは遷移先のリソースに変わるので、同期させる
+              headers:{
+                  'X-CSRF-TOKEN' : '82939cf2-fed8-4605-b7e0-5c2d7b5a8663'
+              },
+              timeout: 1500, //非同期処理の代わりに、タイムアウト1.5秒までとする。
+          }).then (
+              response => console.log(response)
+          );
+      }
+
+      const postEventToGoogleAnalyticsWithoutDataTypePrefix = (label, isSendMultiTracker) => {
+          $.ajax({
+              type: REQUEST_METHOD.POST,
+              url: GA_REQUEST_PATH,
+              dataType: REQUEST_DATATYPE.JSON,
+              contentType: REQUEST_CONTENT_TYPE.APPLICATION_JSON,
+              data: JSON.stringify({
+                  hitType: GA_HIT_TYPE.EVENT,
+                  eventCategory: '詳細',
+                  eventAction: GA_EVENT_ACTION.CLICK,
+                  eventLabel: label,
+                  sendMultiTracker: isSendMultiTracker
+              }),
+              async : false, //ページ遷移の際、Firefoxは遷移先のリソースに変わるので、同期させる
+              headers:{
+                  'X-CSRF-TOKEN' : '82939cf2-fed8-4605-b7e0-5c2d7b5a8663'
+              },
+              timeout: 1500, //非同期処理の代わりに、タイムアウト1.5秒までとする。
+          }).then (
+              response => console.log(response)
+          );
+      }
+
+      const postEventWithDomainToGoogleAnalytics = (label, domain, isSendMultiTracker) => {
+          $.ajax({
+              type: REQUEST_METHOD.POST,
+              url: GA_REQUEST_PATH,
+              dataType: REQUEST_DATATYPE.JSON,
+              contentType: REQUEST_CONTENT_TYPE.APPLICATION_JSON,
+              data: JSON.stringify({
+                  hitType: GA_HIT_TYPE.EVENT,
+                  eventCategory: '詳細',
+                  eventAction: GA_EVENT_ACTION.CLICK,
+                  eventLabel: '論文' + '_' + label,
+                  sendMultiTracker: isSendMultiTracker,
+                  linkUrl: domain
+              }),
+              async : false, //ページ遷移の際、Firefoxは遷移先のリソースに変わるので、同期させる
+              headers:{
+                  'X-CSRF-TOKEN' : '82939cf2-fed8-4605-b7e0-5c2d7b5a8663'
+              },
+              timeout: 1500, //非同期処理の代わりに、タイムアウト1.5秒までとする。
+          }).then (
+              response => console.log(response)
+          );
+      }
+
+      function addAltmetricsGaEventListener(targetElement) {
+          addGaEventListener(targetElement, 'Altmetrics');
+      }
+
+      function addGaEventListener(targetElement, label) {
+          if ( typeof targetElement === UNDEFINED_ELEMENT || !targetElement) {
+              return;
+          }
+
+          targetElement.addEventListener(EVENT_TYPE.CLICK, function() {
+              sendEvent(label);
+          });
+      }
+
+      const InfoLink = document.getElementById(INFORMATION_ID);
+      addGaEventListener(InfoLink, 'お知らせ');
+
+      window.addEventListener(EVENT_TYPE.LOAD, function () {
+          const pcLinkElm = document.getElementById(LINK_ID.PC);
+          if (pcLinkElm && pcLinkElm.tagName === A_TAG_NAME) {
+              addGaEventListener(pcLinkElm, 'PC表示');
+          }
+
+          const spLinkElm = document.getElementById(LINK_ID.SMART_PHONE);
+          if (spLinkElm && spLinkElm.tagName === A_TAG_NAME) {
+              addGaEventListener(spLinkElm, 'スマートフォン表示');
+          }
+      });
+
+    </script>
+
+    <!--end of div#footer-->
+
+<script>pageviewAll(document.title + ' | ' + '論文')</script>
+
+    <script src="/static/slick/slick.min.js?ebe1c1c360fe5088c5ff762755bbde31" type="text/javascript"
+    >
+    </script>
+<script type="text/javascript">
+    $(function () {
+        $('.slider').slick({
+            infinite: true,
+            dots: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            arrows: false,
+            variableWidth: true,
+            centerMode: true,
+            lazyLoad: 'progressive',
+        });
+    });
+</script>
+
+    <script src="/static/js/customFormControls.js?ebe1c1c360fe5088c5ff762755bbde31" type="text/javascript"
+    >
+    </script>
+    <script src="/static/js/script.js?ebe1c1c360fe5088c5ff762755bbde31" type="text/javascript"
+    >
+    </script>
+</body>
+</html>

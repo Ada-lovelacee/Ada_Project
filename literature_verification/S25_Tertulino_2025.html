@@ -1,0 +1,812 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+	<meta charset="utf-8" >
+	<title>A Comparative Benchmark of Federated Learning Strategies for Mortality Prediction on Heterogeneous and Imbalanced Clinical Data | Article Information | J-GLOBAL</title>
+
+	<meta name="viewport" content="width=1020,initial-scale=1">
+	<meta name="format-detection" content="telephone=no"><!-- 自動電話番号リンク禁止 -->
+	<meta name="csrf-token" content="9CbsAf8wFuUKdQxy2GnbIg1wn8OU3xj8fLA3R31l">
+
+	<meta name="title" content="A Comparative Benchmark of Federated Learning Strategies for Mortality Prediction on Heterogeneous and Imbalanced Clinical Data | Article Information | J-GLOBAL">
+	<meta name="description" content='Article "A Comparative Benchmark of Federated Learning Strategies for Mortality Prediction on Heterogeneous and Imbalanced Clinical Data" Detailed information of the J-GLOBAL is an information service managed by the Japan Science and Technology Agency (hereinafter referred to as "JST"). It provides free access to secondary information on researchers, articles, patents, etc., in science and technology, medicine and pharmacy. The search results guide you to high-quality primary information inside and outside JST.'>
+	<meta name="keywords" content="J-GLOBAL, jglobal, j-global, ｊ－ｇｌｏｂａｌ, ｊｇｌｏｂａｌ, Ｊ－ＧＬＯＢＡＬ, Japan Science and Technology Agency, JST, jst, ＪＳＴ, ｊｓｔ, Researcher, Article, Paper, Patent, Research Project, Funding, Organization, Institute, Technical Term, Thesaurus, Chemical Substance, Gene, Material, Journal, Magazine, Research Resource, Facility, Search, Science and Technology, Professional, Database, Integrated search, Comprehensive search, Linkcenter, Jdream, Imagination, Idea,Related search, Search engine, R&D, Research and Development, Bobliography, Technical trend, Linking, Expanding, Sparking, Article, A Comparative Benchmark of Federated Learning Strategies for Mortality Prediction on Heterogeneous and Imbalanced Clinical Data">
+	<meta name="citation_title" content="A Comparative Benchmark of Federated Learning Strategies for Mortality Prediction on Heterogeneous and Imbalanced Clinical Data" />
+	<meta name="citation_author" content="Tertulino Rodrigo" />
+	<meta name="citation_publication_date" content="2025" />
+	<meta name="citation_journal_title" content="arXiv" />
+	<meta name="citation_private_id" content="25P0240343" />
+	<meta name="citation_public_url" content="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=202502215244400364" />
+<meta property="og:url" content="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=202502215244400364">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Comparative Benchmark of Federated Learning Strategies for Mortality Prediction on Heterogeneous and Imbalanced Clinical Data | Article Information | J-GLOBAL">
+<meta property="og:image" content="https://jglobal.jst.go.jp/build/resources/images/jglobal_logo.png">
+<meta property="og:image:alt" content="J-GLOBAL LOGO" />
+
+	<link rel="canonical" href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=202502215244400364">
+	<link rel="shortcut icon" href="https://jglobal.jst.go.jp/build/resources/images/favicon/favicon.ico">
+	<link rel="apple-touch-icon" href="https://jglobal.jst.go.jp/build/resources/images/favicon/apple-touch-icon.png">
+
+	<!-- css --><!-- js -->
+	<link rel="preload" as="style" href="https://jglobal.jst.go.jp/build/resources/css/pc-mA-yhpk4.css" /><link rel="preload" as="style" href="https://jglobal.jst.go.jp/build/resources/css/app-DVw0mqUT.css" /><link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/app-C3JoBlZC.js" /><link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/vue.esm-bundler-B3lV_LOk.js" /><link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/pcsp-DjZmL9h_.js" /><link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/pc-D85XsGxH.js" /><link rel="stylesheet" href="https://jglobal.jst.go.jp/build/resources/css/pc-mA-yhpk4.css" /><link rel="stylesheet" href="https://jglobal.jst.go.jp/build/resources/css/app-DVw0mqUT.css" /><script type="module" src="https://jglobal.jst.go.jp/build/resources/js/app-C3JoBlZC.js"></script><script type="module" src="https://jglobal.jst.go.jp/build/resources/js/pcsp-DjZmL9h_.js"></script><script type="module" src="https://jglobal.jst.go.jp/build/resources/js/pc-D85XsGxH.js"></script>	
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript" src="https://jglobal.jst.go.jp/build/resources/js/jsme/jsme.nocache.js"></script>
+	<script >function jsmeOnLoad() {}</script> <!-- JSME作成先タグが動的に生成されるので、ここでは、JSME生成を実装しない -->
+</head>
+
+
+
+	<body class="japanese">
+		<div class="w_header_bg" >
+			<!--//////////////////////////////* ↓Header *////////////////////////////// -->
+<div class="header display_pc" id="pc_header_v">
+	<input type="hidden" name="" id="x_hidden" value="eyJpdiI6ImxVVjM3d0syZjVQbGNhK3E2dkhkbEE9PSIsInZhbHVlIjoiNVZaUFJFQUxwOXJBM2grblFmYlUwdUlpelhIcDQwNldBd0V0WnlOOE9wZjUzTkw2ZTI1ZTBScndOcGdmNTRwQXErTFFiTjU5ZEllb1FubmlRL0ljWm8vdDVCeGgxeEJlUldMSjB1MHByYWs9IiwibWFjIjoiNzEyYzRjN2RmYjI4YmU4NzQzYTdlYmIyMTY1Yzg5ZjRlYjg5NDhiZDZjOTY1MDI1YWVmNjI5MzYwNjVlNDg4MSIsInRhZyI6IiJ9">
+	<header-pc-component lang="en" is_login="" user_name="" lang_switch_url="https://jglobal.jst.go.jp/detail?JGLOBAL_ID=202502215244400364"></header-pc-component>
+</div><!-- /header -->
+<!--//////////////////////////////* ↑Header *//////////////////////////////-->
+<link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/header_vue-DNyS1urY.js" /><link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/vue.esm-bundler-B3lV_LOk.js" /><link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/api_store-D9Y2l_Al.js" /><script type="module" src="https://jglobal.jst.go.jp/build/resources/js/header_vue-DNyS1urY.js"></script><!-- ヘッダー -->
+		</div>
+		<div id="detail_v">
+			<div class="w_header-nav_bg" ><alerts2-component></alerts2-component>
+	<!-- 検索バー -->
+	<search-bar-pc-component
+		:has-search-condition="hasSearchCondition"
+		:free-word="freeWord" v-model:free-word="freeWord"
+		:synonym-group-count="synonymGroupCount"
+		:select-base-type="selectBaseType"
+		:base-type="popupBaseType"
+		:search-synonyms="searchSynonyms"
+		:see-synonym="seeSynonym"
+		:do-search="doSearch"
+		:clear-search-condition="clearSearchCondition"
+		is-login=""
+		:err-msgs="errMsgs"
+		:is-ill-free-word='isIllFreeWord'
+		:bookmark-list='bookmarkList'>
+	</search-bar-pc-component>
+	<!-- ポップアップ -->
+	<popup-detailedsearch-pc-component
+		:free-word="freeWord" v-model:free-word="freeWord"
+		:all-fields="allFields" v-model="allFields"
+		:popup-base-type="popupBaseType"
+		:synonym-group-count="synonymGroupCount"
+		:synonym-group="synonymGroup"
+		v-model="synonym" :synonym="synonym"
+		:synonym-open-flg="synonymOpenFlg"
+		:change-synonym-open-flg="changeSynonymOpenFlg"
+		:search-synonyms="searchSynonyms"
+		:do-search="doSearch"
+		:reset-this-search-condition="resetThisSearchCondition"
+		:chemical-s-s-c="chemicalSSC"
+		:err-msgs="errMsgs" :update-err-msg="updateErrMsg"
+		:on-chemical-structure-str-change="onChemicalStructureStrChange"
+		:select-base-type="selectBaseType"
+		:is-ill-free-word='isIllFreeWord'
+		:pop-article-type="popArticleType"
+		:change-pop-article-type="changePopArticleType">
+	</popup-detailedsearch-pc-component>
+</div>
+			<div class="contents">
+				<div class="contents_in" v-cloak>
+					<div class="contents_in_side right">
+												<!-- 外部リンク -->
+						<exlink-component v-if="baseData != null" :base-data="baseData"></exlink-component>
+
+						<!-- 関連検索 -->
+						<div class="side_similar">
+							<template v-for="relatedCategory in relatedCategories.slice(0, 4)">
+								<related-component :related-category="relatedCategory" :do-search-related="doSearchRelated"></related-component>
+							</template>
+						</div>
+
+						<!-- 広告 -->
+						
+						<!-- 関連検索 -->
+						<div class="side_similar">
+							<template v-for="relatedCategory in relatedCategories.slice(4, 7)">
+								<related-component :related-category="relatedCategory" :do-search-related="doSearchRelated"></related-component>
+							</template>
+						</div>
+					</div>
+					<!-- 詳細 -->
+					<!-- 文献詳細画面 contents -->
+	
+	<div class="contents_in_main">
+		<div class="search_detail">
+						<div class="search_detail_topbox">
+									<div class="cate_icon preprint" style="width: auto;">Preprint</div><!-- プレプリント -->
+													<span class="info_number">
+						J-GLOBAL ID：202502215244400364&nbsp;&nbsp;<!-- J-GLOBAL ID -->
+												Reference number：25P0240343<!-- 整理番号 -->
+											</span>
+					<!-- タイトル -->
+										<h1 class="search_detail_topbox_title">A Comparative Benchmark of Federated Learning Strategies for Mortality Prediction on Heterogeneous and Imbalanced Clinical Data</h1>
+										<!-- 翻訳タイトル -->
+															<div class="search_detail_topbox_title_sub">異種および不均衡臨床データにおける死亡率予測のための連合学習戦略の比較ベンチマーク【JST機械翻訳】</div>
+															<ul class="ex_link">
+						<li>
+														<a href="https://jglobal.jst.go.jp/redir?url=https%3A%2F%2Farxiv.org%2F&amp;sign=c7f516d9a328d6692cd9d617d4d08f7d&amp;linktype=publisher&amp;jgid=202502215244400364" target="_blank" @click="onClickTextExlink('出版者サイト', 'https://arxiv.org/')" class="newWin"  style="margin: 0 13px 0 0;">
+								<span>Publisher site</span><!-- 出版者サイト -->
+							</a>
+							{{ this.onShowPLink() }}
+																					<span style="color:#bbb;">Copy service</span><!-- 複写サービス -->
+													</li>
+						<li>
+														<span class="noLink">Access JDreamⅢ for advanced search and analysis.</span><!-- 高度な検索・分析はJDreamIIIで -->
+													</li>
+					</ul>
+					<clip-component v-if="baseData != null" :result="baseData" is-login="" :bookmark-list="this.bookmarkList"></clip-component>
+							</div>
+												<div class="about_preprint_link">This is a preprint. See "<a href="/en/help/aboutpreprint" style="font-weight: bold; text-decoration:underline;">About preprints</a>" page for more details.</div>
+											<div style="padding:2px 0 2px 10px;">To check the article posted on the arXiv has a history of withdrawal, see <a href="https://jglobal.jst.go.jp/redir?url=https%3A%2F%2Farxiv.org%2Fabs%2F2509.10517&sign=98bf6733a889fe72c40e1b56489cef28&linktype=preprint&jgid=202502215244400364" target="_blank" style="text-decoration:underline; color: #346ad9;">the primary information</a> .</div>
+													<!-- 著者 -->
+								<span class="detail_item_title">Author&nbsp;(1)：</span>
+								<div class="js_tooltip_search">
+					<span style="font-weight: bold;">Tertulino Rodrigo</span>
+					<!-- //////検索候補////// -->
+					<div class="tooltip_search_text">
+						<p class="tooltip_search_title">About Tertulino Rodrigo</p><!-- :param0について -->
+						<ul>
+													    <li>
+								<a @click="util.toSearch('0', '202650001256105783')">
+								Search "202650001256105783"<!-- 名寄せID(JGPN) :param0 ですべてを検索 -->
+								</a>
+							</li>
+														<li>
+								<a @click="util.toSearch('0', 'Tertulino Rodrigo')">
+								Search "Tertulino Rodrigo"<!-- 「:param0」ですべてを検索 -->
+								</a>
+							</li>
+													</ul>
+					</div>
+					<!-- //////検索候補////// -->
+				</div><!-- /js_tooltip_search -->
+																<br />
+				 <!-- 著者 -->
+
+				<!-- 資料名 -->
+								<span class="detail_item_title">Material：</span>
+				<div class="js_tooltip_search">
+					arXiv
+										<div class="tooltip_search_text">
+						<p class="tooltip_search_title">About arXiv</p><!-- :param0について -->
+						<ul>
+														<li>
+								<a @click="util.toSearch('0', 'O7000B')">
+									 Search "O7000B"<!-- JST資料番号 :param0 ですべてを検索 -->
+								</a>
+							</li>
+																											</ul>
+					</div>
+				</div>
+				<br />
+				<!-- 資料名 -->
+
+																				<span class="detail_item_title">Publication year：</span><!-- 発行年 -->
+				Nov. 15, 2025&nbsp;
+												<span class="detail_item_title">update date on preprint server：</span><!-- 更新日 -->
+				Nov. 18, 2025
+												<br />
+				
+								<span class="detail_item_title">JST Material Number：</span><!-- JST資料番号 -->
+				O7000B&nbsp;
+																								<span class="detail_item_title">Document type：</span><!-- 資料種別 -->
+				Preprint
+												<br />
+				
+								<span class="detail_item_title">Article type：</span><!-- 記事区分 -->
+				プレプリント&nbsp;
+																<span class="detail_item_title">Language：</span><!-- 言語 -->
+				ENGLISH (EN)
+												<br />
+												<div class="" style="width: 100%;">
+					<!-- 抄録/ポイント -->
+										<div class="box1 padding_10 float_l" style="width: 100%;">
+						<span class="js_tooltip">
+														<span class="detail_item_title">Abstract/Point：</span><!-- 抄録/ポイント -->
+							<div class="tooltip_text">
+								<span class="bold t_110">Abstract/Point</span><br /><!-- 抄録/ポイント -->
+								<span>Japanese summary of the article(about several hundred characters).<br>All summary is available on JDreamIII(charged).<br>On J-GLOBAL, this item will be available after more than half a year after the record posted. In addtion, medical articles require to login to MyJ-GLOBAL.</span>
+							</div>
+													</span>
+						Machine learning models hold s...
+					</div>
+					
+										<div align="right">
+												<div class="js_tooltip_search" style="text-decoration: none;">
+							<a href="https://jglobal.jst.go.jp/en/jlogin" class="need_myjglobal_redir" >Register(free) or Log In to access</a>&nbsp;<!-- ログイン画面リンク --><!-- J-GLOBALで見るには -->
+							<div class="tooltip_search_text">
+								<p class="tooltip_search_title">Please <a href="https://jglobal.jst.go.jp/en/jlogin" class="need_myjglobal_redir">login to MyJ-GLOBAL</a> to see full information. You also need to select "Display  abstract, etc. of medical articles" in your MyJ-GLOBAL account page in order to see abstracts, etc. of medical articles.</p>
+							</div>
+						</div>
+																							</div>
+										<div class="" style="width: 100%;">
+						<!-- シソーラス用語 -->
+												<span class="bold js_tooltip">
+							<span class="detail_item_title">Thesaurus term：</span><!-- シソーラス用語 -->
+							<div class="tooltip_text">
+								<span class="bold t_110">Thesaurus term/Semi thesaurus term</span><br /><!-- シソーラス用語/準シソーラス用語 -->
+								<span>Keywords indexed to the article.<br>All keywords is available on JDreamIII(charged).<br>On J-GLOBAL, this item will be available after more than half a year after the record posted.  In addtion, medical articles require to login to MyJ-GLOBAL.</span>
+								<!--
+									文献のテーマは（主題）を表すキーワードです。<br />
+									部分表示の場合は、JDreamⅢ(有料)にてご覧頂けます。<br />
+									なお、J-GLOBALJ-GLOBALでは書誌情報登載6ヶ月以上経過後に表示されます。<br />
+								-->
+							</div>
+						</span><!-- /js_tooltip_search -->
+												<div class="js_tooltip_search">
+							<a>アルゴリズム</a>
+							<!-- //////検索候補////// -->
+							<div class="tooltip_search_text">
+								<p class="tooltip_search_title">About アルゴリズム</p><!-- :param0について -->
+									<ul>
+										<li>
+											<a @click="util.toSearch('0', 'アルゴリズム')">
+												Search "アルゴリズム"<!-- 「:param0」ですべてを検索 -->
+											</a>
+										</li>
+																				<li>
+											<a href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=200906048949676101" class="need_hash">Detailed information</a> <!-- この用語の用語情報を見る -->
+										</li>
+																			</ul>
+							</div>
+							<!-- //////検索候補////// -->
+						</div><!-- /js_tooltip_search -->
+						,&nbsp;												<div class="js_tooltip_search">
+							<a>*死亡率</a>
+							<!-- //////検索候補////// -->
+							<div class="tooltip_search_text">
+								<p class="tooltip_search_title">About 死亡率</p><!-- :param0について -->
+									<ul>
+										<li>
+											<a @click="util.toSearch('0', '死亡率')">
+												Search "死亡率"<!-- 「:param0」ですべてを検索 -->
+											</a>
+										</li>
+																				<li>
+											<a href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=200906019365176514" class="need_hash">Detailed information</a> <!-- この用語の用語情報を見る -->
+										</li>
+																			</ul>
+							</div>
+							<!-- //////検索候補////// -->
+						</div><!-- /js_tooltip_search -->
+						,&nbsp;												<div class="js_tooltip_search">
+							<a>通信</a>
+							<!-- //////検索候補////// -->
+							<div class="tooltip_search_text">
+								<p class="tooltip_search_title">About 通信</p><!-- :param0について -->
+									<ul>
+										<li>
+											<a @click="util.toSearch('0', '通信')">
+												Search "通信"<!-- 「:param0」ですべてを検索 -->
+											</a>
+										</li>
+																				<li>
+											<a href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=200906070799536530" class="need_hash">Detailed information</a> <!-- この用語の用語情報を見る -->
+										</li>
+																			</ul>
+							</div>
+							<!-- //////検索候補////// -->
+						</div><!-- /js_tooltip_search -->
+						,&nbsp;												<div class="js_tooltip_search">
+							<a>正則化</a>
+							<!-- //////検索候補////// -->
+							<div class="tooltip_search_text">
+								<p class="tooltip_search_title">About 正則化</p><!-- :param0について -->
+									<ul>
+										<li>
+											<a @click="util.toSearch('0', '正則化')">
+												Search "正則化"<!-- 「:param0」ですべてを検索 -->
+											</a>
+										</li>
+																				<li>
+											<a href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=200906018776600019" class="need_hash">Detailed information</a> <!-- この用語の用語情報を見る -->
+										</li>
+																			</ul>
+							</div>
+							<!-- //////検索候補////// -->
+						</div><!-- /js_tooltip_search -->
+						,&nbsp;												<div class="js_tooltip_search">
+							<a>*ベンチマーク</a>
+							<!-- //////検索候補////// -->
+							<div class="tooltip_search_text">
+								<p class="tooltip_search_title">About ベンチマーク</p><!-- :param0について -->
+									<ul>
+										<li>
+											<a @click="util.toSearch('0', 'ベンチマーク')">
+												Search "ベンチマーク"<!-- 「:param0」ですべてを検索 -->
+											</a>
+										</li>
+																				<li>
+											<a href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=200906023220964759" class="need_hash">Detailed information</a> <!-- この用語の用語情報を見る -->
+										</li>
+																			</ul>
+							</div>
+							<!-- //////検索候補////// -->
+						</div><!-- /js_tooltip_search -->
+						,&nbsp;												<div class="js_tooltip_search">
+							<a>ロバスト性</a>
+							<!-- //////検索候補////// -->
+							<div class="tooltip_search_text">
+								<p class="tooltip_search_title">About ロバスト性</p><!-- :param0について -->
+									<ul>
+										<li>
+											<a @click="util.toSearch('0', 'ロバスト性')">
+												Search "ロバスト性"<!-- 「:param0」ですべてを検索 -->
+											</a>
+										</li>
+																				<li>
+											<a href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=200906034070166664" class="need_hash">Detailed information</a> <!-- この用語の用語情報を見る -->
+										</li>
+																			</ul>
+							</div>
+							<!-- //////検索候補////// -->
+						</div><!-- /js_tooltip_search -->
+						,&nbsp;												<div class="js_tooltip_search">
+							<a>機械学習</a>
+							<!-- //////検索候補////// -->
+							<div class="tooltip_search_text">
+								<p class="tooltip_search_title">About 機械学習</p><!-- :param0について -->
+									<ul>
+										<li>
+											<a @click="util.toSearch('0', '機械学習')">
+												Search "機械学習"<!-- 「:param0」ですべてを検索 -->
+											</a>
+										</li>
+																				<li>
+											<a href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=200906017615114576" class="need_hash">Detailed information</a> <!-- この用語の用語情報を見る -->
+										</li>
+																			</ul>
+							</div>
+							<!-- //////検索候補////// -->
+						</div><!-- /js_tooltip_search -->
+						,&nbsp;												<div class="js_tooltip_search">
+							<a>*臨床データ</a>
+							<!-- //////検索候補////// -->
+							<div class="tooltip_search_text">
+								<p class="tooltip_search_title">About 臨床データ</p><!-- :param0について -->
+									<ul>
+										<li>
+											<a @click="util.toSearch('0', '臨床データ')">
+												Search "臨床データ"<!-- 「:param0」ですべてを検索 -->
+											</a>
+										</li>
+																				<li>
+											<a href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=200906006599171554" class="need_hash">Detailed information</a> <!-- この用語の用語情報を見る -->
+										</li>
+																			</ul>
+							</div>
+							<!-- //////検索候補////// -->
+						</div><!-- /js_tooltip_search -->
+						,&nbsp;												<div class="js_tooltip_search">
+							<a>院内死亡率</a>
+							<!-- //////検索候補////// -->
+							<div class="tooltip_search_text">
+								<p class="tooltip_search_title">About 院内死亡率</p><!-- :param0について -->
+									<ul>
+										<li>
+											<a @click="util.toSearch('0', '院内死亡率')">
+												Search "院内死亡率"<!-- 「:param0」ですべてを検索 -->
+											</a>
+										</li>
+																				<li>
+											<a href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=200906067066382242" class="need_hash">Detailed information</a> <!-- この用語の用語情報を見る -->
+										</li>
+																			</ul>
+							</div>
+							<!-- //////検索候補////// -->
+						</div><!-- /js_tooltip_search -->
+						,&nbsp;												<div class="js_tooltip_search">
+							<a>計算効率</a>
+							<!-- //////検索候補////// -->
+							<div class="tooltip_search_text">
+								<p class="tooltip_search_title">About 計算効率</p><!-- :param0について -->
+									<ul>
+										<li>
+											<a @click="util.toSearch('0', '計算効率')">
+												Search "計算効率"<!-- 「:param0」ですべてを検索 -->
+											</a>
+										</li>
+																				<li>
+											<a href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=200906029234722160" class="need_hash">Detailed information</a> <!-- この用語の用語情報を見る -->
+										</li>
+																			</ul>
+							</div>
+							<!-- //////検索候補////// -->
+						</div><!-- /js_tooltip_search -->
+						,&nbsp;												<div class="js_tooltip_search">
+							<a>不均衡</a>
+							<!-- //////検索候補////// -->
+							<div class="tooltip_search_text">
+								<p class="tooltip_search_title">About 不均衡</p><!-- :param0について -->
+									<ul>
+										<li>
+											<a @click="util.toSearch('0', '不均衡')">
+												Search "不均衡"<!-- 「:param0」ですべてを検索 -->
+											</a>
+										</li>
+																				<li>
+											<a href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=200906045976397061" class="need_hash">Detailed information</a> <!-- この用語の用語情報を見る -->
+										</li>
+																			</ul>
+							</div>
+							<!-- //////検索候補////// -->
+						</div><!-- /js_tooltip_search -->
+																								<br />
+												<!-- 準シソーラス用語 -->
+												<span class="bold js_tooltip">
+							<span class="detail_item_title">Semi thesaurus term：</span><!-- 準シソーラス用語 -->
+							<div class="tooltip_text">
+								<span class="bold t_110">Thesaurus term/Semi thesaurus term</span><br /><!-- シソーラス用語/準シソーラス用語 -->
+								<span>Keywords indexed to the article.<br>All keywords is available on JDreamIII(charged).<br>On J-GLOBAL, this item will be available after more than half a year after the record posted.  In addtion, medical articles require to login to MyJ-GLOBAL.</span>
+								<!--
+									文献のテーマは（主題）を表すキーワードです。<br />
+									部分表示の場合は、JDreamⅢ(有料)にてご覧頂けます。<br />
+									なお、J-GLOBALJ-GLOBALでは書誌情報登載6ヶ月以上経過後に表示されます。<br />
+								-->
+							</div>
+						</span>
+												<!-- 要望）準シソーラス用語の「【AI@JST】」、「JCME」は、本来の索引を意味するものではないので、マウスオーバーでの検索が表示されないようにしてください。 -->
+												<div class="js_tooltip_search">
+							<a>訓練データ</a>
+							<!-- //////検索候補////// -->
+							<div class="tooltip_search_text">
+								<p class="tooltip_search_title">About 訓練データ</p><!-- :param0について -->
+								<ul>
+									<li>
+										<a @click="util.toSearch('0', '訓練データ')">
+											Search "訓練データ"<!-- 「:param0」ですべてを検索 -->
+										</a>
+									</li>
+																		<li>
+										<a href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=200906005553777516" class="need_hash">Detailed information</a> <!-- この用語の用語情報を見る -->
+									</li>
+																	</ul>
+							</div>
+							<!-- //////検索候補////// -->
+						</div><!-- /js_tooltip_search -->
+												,&nbsp;												<!-- 要望）準シソーラス用語の「【AI@JST】」、「JCME」は、本来の索引を意味するものではないので、マウスオーバーでの検索が表示されないようにしてください。 -->
+												<div class="js_tooltip_search">
+							<a>データプライバシー</a>
+							<!-- //////検索候補////// -->
+							<div class="tooltip_search_text">
+								<p class="tooltip_search_title">About データプライバシー</p><!-- :param0について -->
+								<ul>
+									<li>
+										<a @click="util.toSearch('0', 'データプライバシー')">
+											Search "データプライバシー"<!-- 「:param0」ですべてを検索 -->
+										</a>
+									</li>
+																		<li>
+										<a href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=201106012147792053" class="need_hash">Detailed information</a> <!-- この用語の用語情報を見る -->
+									</li>
+																	</ul>
+							</div>
+							<!-- //////検索候補////// -->
+						</div><!-- /js_tooltip_search -->
+												,&nbsp;												<!-- 要望）準シソーラス用語の「【AI@JST】」、「JCME」は、本来の索引を意味するものではないので、マウスオーバーでの検索が表示されないようにしてください。 -->
+												<div class="js_tooltip_search">
+							<a>*学習戦略</a>
+							<!-- //////検索候補////// -->
+							<div class="tooltip_search_text">
+								<p class="tooltip_search_title">About 学習戦略</p><!-- :param0について -->
+								<ul>
+									<li>
+										<a @click="util.toSearch('0', '学習戦略')">
+											Search "学習戦略"<!-- 「:param0」ですべてを検索 -->
+										</a>
+									</li>
+																		<li>
+										<a href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=201206059793686214" class="need_hash">Detailed information</a> <!-- この用語の用語情報を見る -->
+									</li>
+																	</ul>
+							</div>
+							<!-- //////検索候補////// -->
+						</div><!-- /js_tooltip_search -->
+												,&nbsp;												<!-- 要望）準シソーラス用語の「【AI@JST】」、「JCME」は、本来の索引を意味するものではないので、マウスオーバーでの検索が表示されないようにしてください。 -->
+												<div class="js_tooltip_search">
+							<a>クラス不均衡</a>
+							<!-- //////検索候補////// -->
+							<div class="tooltip_search_text">
+								<p class="tooltip_search_title">About クラス不均衡</p><!-- :param0について -->
+								<ul>
+									<li>
+										<a @click="util.toSearch('0', 'クラス不均衡')">
+											Search "クラス不均衡"<!-- 「:param0」ですべてを検索 -->
+										</a>
+									</li>
+																		<li>
+										<a href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=201306038070069160" class="need_hash">Detailed information</a> <!-- この用語の用語情報を見る -->
+									</li>
+																	</ul>
+							</div>
+							<!-- //////検索候補////// -->
+						</div><!-- /js_tooltip_search -->
+																																				,&nbsp;【Automatic Indexing@JST】
+												<br/>
+											</div>
+				</div>
+				
+				<!-- 著者キーワード -->
+				
+				<!-- 分類 -->
+								<div>
+					<span class="js_tooltip">
+						<span class="detail_item_title">JST classification&nbsp;(1)：</span><!-- 分類 -->
+						<div class="tooltip_text">
+							<span class="bold t_110">JST classification</span><br />
+							Category name(code) classified by JST.<!-- JSTが定めた文献の分類名称とコードです -->
+						</div>
+					</span>
+    														Artificial intelligence&nbsp;
+										<div class="js_tooltip_search">
+												(JE08000Z)
+												<!-- //////検索候補////// -->
+						<div class="tooltip_search_text">
+														<p class="tooltip_search_title">
+								About Artificial intelligence<!-- :param0 について -->
+							</p>
+														<ul>
+																<li>
+									<a @click="toSearchByFields('2', 'JE08000Z')">
+										Search "JE08000Z"<!-- 分類コード :param0で文献を検索 -->
+									</a>
+								</li>
+																								<li>
+									<a @click="toSearchByFields('2', 'JE08')">
+										Search "JE08"<!-- 分類コード4桁:param0 で文献を検索 -->
+									</a>
+								</li>
+															</ul>
+						</div>
+						<!-- //////検索候補////// -->
+					</div>
+					<!-- /js_tooltip_search -->
+														</div>
+				
+				<!-- 物質索引 -->
+				
+				<!-- 引用文献 -->
+				
+				<!-- タイトルに関連する用語 -->
+								<div class="indent_2line-1em">
+					<span class="js_tooltip">
+						<span class="detail_item_title">Terms in the title&nbsp;(6)：</span><!-- タイトルに関連する用語 -->
+						<div class="tooltip_text">
+							<span class="bold t_110">Terms in the title</span><br />
+							Keywords automatically extracted from the title.<!-- J-GLOBALで独自に切り出した文献タイトルの用語をもとにしたキーワードです -->
+						</div>
+					</span>
+										<div class="js_tooltip_search">
+						<a>均衡</a>
+						<!-- //////検索候補////// -->
+						<div class="tooltip_search_text">
+							<p class="tooltip_search_title">
+								About 均衡<!-- {0}について -->
+							</p>
+							<ul>
+								<li>
+									<a @click="util.toSearch('0', '均衡')">
+										Search "均衡"<!-- 「{0}」ですべてを検索 -->
+									</a>
+								</li>
+																<li>
+									<a href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=200906096194342849" class="need_hash">
+										Detailed information<!-- この用語の用語情報を見る -->
+									</a>
+								</li>
+															</ul>
+						</div>
+						<!-- //////検索候補////// -->
+					</div><!-- /js_tooltip_search -->
+					,&nbsp;										<div class="js_tooltip_search">
+						<a>臨床データ</a>
+						<!-- //////検索候補////// -->
+						<div class="tooltip_search_text">
+							<p class="tooltip_search_title">
+								About 臨床データ<!-- {0}について -->
+							</p>
+							<ul>
+								<li>
+									<a @click="util.toSearch('0', '臨床データ')">
+										Search "臨床データ"<!-- 「{0}」ですべてを検索 -->
+									</a>
+								</li>
+																<li>
+									<a href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=200906006599171554" class="need_hash">
+										Detailed information<!-- この用語の用語情報を見る -->
+									</a>
+								</li>
+															</ul>
+						</div>
+						<!-- //////検索候補////// -->
+					</div><!-- /js_tooltip_search -->
+					,&nbsp;										<div class="js_tooltip_search">
+						<a>死亡率</a>
+						<!-- //////検索候補////// -->
+						<div class="tooltip_search_text">
+							<p class="tooltip_search_title">
+								About 死亡率<!-- {0}について -->
+							</p>
+							<ul>
+								<li>
+									<a @click="util.toSearch('0', '死亡率')">
+										Search "死亡率"<!-- 「{0}」ですべてを検索 -->
+									</a>
+								</li>
+																<li>
+									<a href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=200906019365176514" class="need_hash">
+										Detailed information<!-- この用語の用語情報を見る -->
+									</a>
+								</li>
+															</ul>
+						</div>
+						<!-- //////検索候補////// -->
+					</div><!-- /js_tooltip_search -->
+					,&nbsp;										<div class="js_tooltip_search">
+						<a>予測</a>
+						<!-- //////検索候補////// -->
+						<div class="tooltip_search_text">
+							<p class="tooltip_search_title">
+								About 予測<!-- {0}について -->
+							</p>
+							<ul>
+								<li>
+									<a @click="util.toSearch('0', '予測')">
+										Search "予測"<!-- 「{0}」ですべてを検索 -->
+									</a>
+								</li>
+																<li>
+									<a href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=200906051276227734" class="need_hash">
+										Detailed information<!-- この用語の用語情報を見る -->
+									</a>
+								</li>
+															</ul>
+						</div>
+						<!-- //////検索候補////// -->
+					</div><!-- /js_tooltip_search -->
+					,&nbsp;										<div class="js_tooltip_search">
+						<a>学習戦略</a>
+						<!-- //////検索候補////// -->
+						<div class="tooltip_search_text">
+							<p class="tooltip_search_title">
+								About 学習戦略<!-- {0}について -->
+							</p>
+							<ul>
+								<li>
+									<a @click="util.toSearch('0', '学習戦略')">
+										Search "学習戦略"<!-- 「{0}」ですべてを検索 -->
+									</a>
+								</li>
+																<li>
+									<a href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=201206059793686214" class="need_hash">
+										Detailed information<!-- この用語の用語情報を見る -->
+									</a>
+								</li>
+															</ul>
+						</div>
+						<!-- //////検索候補////// -->
+					</div><!-- /js_tooltip_search -->
+					,&nbsp;										<div class="js_tooltip_search">
+						<a>ベンチマーク</a>
+						<!-- //////検索候補////// -->
+						<div class="tooltip_search_text">
+							<p class="tooltip_search_title">
+								About ベンチマーク<!-- {0}について -->
+							</p>
+							<ul>
+								<li>
+									<a @click="util.toSearch('0', 'ベンチマーク')">
+										Search "ベンチマーク"<!-- 「{0}」ですべてを検索 -->
+									</a>
+								</li>
+																<li>
+									<a href="https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=200906023220964759" class="need_hash">
+										Detailed information<!-- この用語の用語情報を見る -->
+									</a>
+								</li>
+															</ul>
+						</div>
+						<!-- //////検索候補////// -->
+					</div><!-- /js_tooltip_search -->
+														</div>
+								<!-- ライセンス情報 -->
+ 								<div class="indent_2line-1em">
+					<span id="license_title" class="detail_item_title license_close" style="cursor: pointer;" onclick="util.showLicense('license_title', 'license')">license：</span><br/>
+					<span id="license" style="display:none; "><a href="/redir?url=http%3A%2F%2Fcreativecommons.org%2Flicenses%2Fby%2F4.0%2F&sign=6d8231b059f2f22e3026e91bc0b710bb&linktype=license&jgid=202502215244400364" target="_blank" class="newWin">http://creativecommons.org/licenses/by/4.0/</a></span>
+				</div>
+													<br />
+			<a class="btn_m float_l" onclick="location.href='javascript:history.back()'">Return to Previous Page</a><!-- 前のページに戻る -->
+			<br /><br />
+		</div>
+	</div>
+	<!-- /contents_in_main -->
+
+<!-- 	<div class="contents_in_main"> -->
+<!-- 	<detail-article-component v-if="baseData != null" is-login="" med-role="" :base-data="baseData" :bookmark-list="bookmarkList"></detail-article-component> -->
+<!--     </div> -->
+				</div>
+			</div>
+		</div>
+
+		<!--//////////////////////////////* ↓フッター *////////////////////////////// -->
+<div class="footer footer_fixed" style="left:-9999px; top:-9999px;" id="footer_1">
+	<div class="footer_in">
+		<div class="footer_left">
+		<ul class="sosial_icon">
+			<li class="fbbtn">
+				<iframe id="facebook_share" width="70" height="25" style="border:none; overflow:hidden" allowfullscreen="true" scrolling="no" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+				<script type="module">
+					(
+						function() {
+							var src = "https://www.facebook.com/plugins/share_button.php?href=" + encodeURIComponent(location.href);
+						    if (location.pathname.indexOf('/en') == 0) {
+						        src = src + '&locale=en_US';
+						    } else {
+						        src = src + '&locale=ja_JP';
+						        $('#facebook_share').width(90);
+						    }
+							src = src + "&width=135&layout=button&action=like&size=small&show_faces=false&share=true&height=25&appId";
+							$('#facebook_share').attr('src', '');
+							$('#facebook_share').attr('src', src);
+						}()
+					);
+				</script>
+			</li>
+			<li>
+			<iframe id="twitter_share" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true"
+				class="twitter-share-button twitter-share-button-rendered twitter-tweet-button"
+				style="position: static; visibility: visible; width: 90px; height: 20px; display: block;" title="Twitter Tweet Button" ></iframe>
+				<script type="module">
+					(
+						function() {
+							var src = "https://platform.twitter.com/widgets/tweet_button.html?text=" + encodeURIComponent(document.title) + "&lang=";
+						    if (location.pathname.indexOf('/en') == 0) {
+						        src = src + 'en';
+						    } else {
+						        src = src + 'ja';
+						    }
+						    $('#twitter_share').attr('src', '');
+							$('#twitter_share').attr('src', src);
+						}()
+					);
+				</script>
+			</li>
+		</ul>
+		<a class="logo2" href="https://www.jst.go.jp/"><img src="https://jglobal.jst.go.jp/build/resources/images/sitelogo2.png" width="249" height="45" ></a>
+		</div>
+		<div id="footer_v" class="footer_right">
+			<footer-component></footer-component>
+		</div>
+		<p class="copy">Copyright (c) 2009 Japan Science and Technology Agency. All Rights Reserved</p>
+	</div><!-- /footer_in -->
+</div><!-- /footer -->
+<div class="btn_getop_link"><a><p>TOP</p></a></div>
+<div class="btn_tobottom_link"><a @click="toBottom"><p>BOTTOM</p></a></div>
+<!-- <div class="btn_getop_link display_pc"><a href="#"><p>TOP</p></a></div> -->
+<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			$('#footer_1').css({'left': '','top': ''});
+		    var pathname = location.pathname;
+		    if (pathname != "/" && pathname != "/en") {
+				$('#footer_1').removeClass('footer_fixed');
+				if (document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+				     $('#footer_1').addClass('footer_fixed');
+				}
+				const target = $('body')[0]; // body要素を監視
+				const observer = new MutationObserver(function (mutations) {
+					$('#footer_1').removeClass('footer_fixed');
+					if (document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+					     $('#footer_1').addClass('footer_fixed');
+					}
+			    });
+			    // 監視を開始
+			    observer.observe(target, {
+			        attributes: true, characterData: true, childList: true, subtree: true, attributeFilter: ["height"],
+			    });
+			}
+		})
+</script>
+<!--//////////////////////////////* ↑フッター *//////////////////////////////-->
+<link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/footer_vue-DP0cdT2y.js" /><link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/vue.esm-bundler-B3lV_LOk.js" /><script type="module" src="https://jglobal.jst.go.jp/build/resources/js/footer_vue-DP0cdT2y.js"></script>		<link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/detail_vue-CIsHiWsa.js" /><link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/PopupMolecularStructure-CF2HgjTx.js" /><link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/vue.esm-bundler-B3lV_LOk.js" /><link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/PopupDetailedsearchPc-C-QI1LcX.js" /><link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/SearchBarPc-CRJrxfEl.js" /><link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/Alerts2-CpVnu4rH.js" /><link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/PopupDownloadChemicalPc-C9Gidxlw.js" /><link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/Exlink-oVaDGzuw.js" /><link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/popup_detailed_search_vue-CCbOErU0.js" /><link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/api_store-D9Y2l_Al.js" /><link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/related-CgpcZKIu.js" /><link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/clip_vue-Dhe8Talj.js" /><link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/PopupClipCountOverDialog-DBnDywgB.js" /><link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/popupDownloadChemical-BS_WbIdQ.js" /><link rel="modulepreload" as="script" href="https://jglobal.jst.go.jp/build/resources/js/asset-vlFa2XN-.js" /><script type="module" src="https://jglobal.jst.go.jp/build/resources/js/detail_vue-CIsHiWsa.js"></script>	</body>
+</html>

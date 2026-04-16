@@ -1,0 +1,26 @@
+﻿No,ShortKey,Title,Status,Notes
+1,S01,IDF Diabetes Atlas 11th ed. 2025,verified,Official IDF/NCBI landing page verified
+2,S02,WHO Diabetes fact sheet 2024,verified,Official WHO fact sheet verified; earlier mismatch concern resolved via WHO page
+3,S03,Machine Learning and Data Mining Methods in Diabetes Research,verified,PubMed/PMC verified DOI 10.1016/j.csbj.2016.12.005
+4,S04,Machine learning and deep learning predictive models for type 2 diabetes: a systematic review,verified,PubMed/BMC verified DOI 10.1186/s13098-021-00767-9
+5,S05,Early detection of type 2 diabetes mellitus using machine learning-based prediction models,verified,Nature verified
+6,S06,Development and Validation of a Machine Learning Model Using Administrative Health Data to Predict Onset of Type 2 Diabetes,verified,PubMed/PMC/JAMA verified DOI 10.1001/jamanetworkopen.2021.11315
+7,S07,The Elements of Statistical Learning 2nd ed.,verified,Springer landing page verified; full text may be access restricted
+8,S08,Communication-efficient learning of deep networks from decentralized data,verified,PMLR/Google Research verified
+9,S09,Advances and open problems in federated learning,verified,FnTML verified DOI 10.1561/2200000083
+10,S10,Federated learning: Challenges methods and future directions,verified,IEEE SPM verified DOI 10.1109/MSP.2020.2975749
+11,S11,The future of digital health with federated learning,verified,Nature verified DOI 10.1038/s41746-020-00323-1
+12,S12,Federated learning of predictive models from federated Electronic Health Records,verified,PubMed/ScienceDirect verified DOI 10.1016/j.ijmedinf.2018.01.007
+13,S13,Federated Learning for Electronic Health Records,verified,DOI/DBLP/metadata verified DOI 10.1145/3514500; full text may be restricted
+14,S14,Federated and distributed learning applications for electronic health records and structured medical data: a scoping review,verified,PubMed/PMC verified DOI 10.1093/jamia/ocad170
+15,S15,Privacy preservation for federated learning in health care,verified,PMC/ScienceDirect verified DOI 10.1016/j.patter.2024.100974
+16,S16,Practical Secure Aggregation for Privacy-Preserving Machine Learning,verified,Google Research/IACR/DOI verified DOI 10.1145/3133956.3133982
+17,S17,Deep Learning with Differential Privacy,verified,Google Research/DOI verified DOI 10.1145/2976749.2978318
+18,S18,Membership Inference Attacks against Machine Learning Models,verified,DOI/metadata verified DOI 10.1109/SP.2017.41
+19,S19,Learning from imbalanced data,verified,DOI/metadata verified DOI 10.1109/TKDE.2008.239
+20,S20,The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets,verified,PubMed/PMC verified DOI 10.1371/journal.pone.0118432
+21,S21,SMOTE: Synthetic Minority Over-sampling Technique,verified,JAIR verified DOI 10.1613/jair.953
+22,S22,The advantages of the Matthews correlation coefficient (MCC) over F1 score and accuracy in binary classification evaluation,verified,PubMed/PMC verified DOI 10.1186/s12864-019-6413-7
+23,S23,Privacy-Preserving Collaborative Diabetes Prediction in Heterogeneous Health Care Systems,verified,PubMed/JMIR verified DOI 10.2196/79166; very recent 2026 paper
+24,S24,Federated Diabetes Prediction in Canadian Adults Using Real-world Cross-Province Primary Care Data,verified with correction,Exists but citation should be AMIA Annu Symp Proc 2025 / collection 2024, not arXiv
+25,S25,A Comparative Benchmark of Federated Learning Strategies for Mortality Prediction on Heterogeneous and Imbalanced Clinical Data,verified as preprint,Preprint-level evidence only; not peer reviewed at time checked

@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!--Converted with LaTeX2HTML 97.1 (release) (July 13th, 1997)
+ by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippman, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>SMOTE: Synthetic Minority Over-sampling Technique</TITLE>
+<META NAME="description" CONTENT="SMOTE: Synthetic Minority Over-sampling Technique">
+<META NAME="keywords" CONTENT="chawla2002">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso_8859_1">
+<LINK REL="STYLESHEET" HREF="chawla2002.css">
+<LINK REL="next" HREF="node1.html">
+</HEAD>
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html42"
+ HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="next_motif.gif"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="up_motif_gr.gif"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="previous_motif_gr.gif">   
+<BR>
+<B> Next:</B> <A NAME="tex2html43"
+ HREF="node1.html">Introduction</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<A HREF="http://www.jair.org">Journal of Artificial Intelligence Research</A> 16 (2002), 321 -- 357. Submitted 09/01; 
+published 06/02.
+<br>
+&#169;2002 AI Access Foundation and Morgan Kaufmann Publishers. All rights reserved. 
+<P><H1 ALIGN="CENTER">SMOTE: Synthetic Minority Over-sampling Technique</H1>
+<P ALIGN="CENTER"><STRONG>Nitesh V. Chawla<SUP>1</SUP>, Kevin W. Bowyer<SUP>2</SUP>, <BR>
+Lawrence O. Hall<SUP>1</SUP>, W. Philip 
+Kegelmeyer<SUP>3</SUP> <BR> <BR>
+<SUP>1</SUP>Department of Computer Science and Engineering, ENB 118
+<BR>
+University of South Florida
+<BR>
+4202 E. Fowler Ave.
+<BR>
+Tampa, FL 33620-5399, USA <BR> 
+<SUP>2</SUP>Department of Computer Science and Engineering
+<BR>
+384 Fitzpatrick Hall <BR>
+University of Notre Dame
+<BR>
+Notre Dame, IN 46556, USA <BR> 
+<SUP>3</SUP>Sandia National Laboratories <BR>
+Biosystems Research Department, P.O. Box 969, MS 9951 <BR>
+Livermore, CA, 94551-0969, USA <BR>
+<BR>
+chawla@csee.usf.edu, kwb@cse.nd.edu, hall@csee.usf.edu, wpk@ca.sandia.gov 
+</STRONG></P>
+<P ALIGN="LEFT"></P>
+<P>
+<H3 CLASS="ABSTRACT">Abstract:</H3>
+<P CLASS="ABSTRACT">An approach to the construction of classifiers from imbalanced datasets is described. A dataset is
+imbalanced if the classification categories are not approximately equally represented. Often real-world
+data sets are predominately composed of ``normal'' examples with only a small percentage of ``abnormal'' or
+``interesting'' examples. It is also the case that the cost of misclassifying an abnormal (interesting)
+example as a normal example is often much higher than the cost of the reverse error. Under-sampling of the
+majority (normal) class has been proposed as a good means of increasing the sensitivity of a classifier to
+the minority class. This paper shows that a combination of our method of over-sampling the minority (abnormal) class and
+under-sampling the majority (normal) class can achieve better classifier performance (in ROC space) than only
+under-sampling the majority class.  This paper also shows that a combination of our method of over-sampling the 
+minority class and under-sampling the majority class can achieve better classifier performance (in ROC space) than varying the loss ratios in Ripper
+or class priors in Naive Bayes. Our method of over-sampling the minority class involves creating
+synthetic minority class examples. Experiments are performed using C4.5, Ripper and a Naive Bayes classifier.
+The method is evaluated using the area under the Receiver Operating Characteristic curve (AUC) and
+the ROC convex hull strategy.
+<P></P>
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS">&#160;</A>
+<UL>
+<LI><A NAME="tex2html44"
+ HREF="node1.html#SECTION00010000000000000000">
+Introduction</A>
+<LI><A NAME="tex2html45"
+ HREF="node2.html#SECTION00020000000000000000">
+Performance Measures</A>
+<LI><A NAME="tex2html46"
+ HREF="node3.html#SECTION00030000000000000000">
+Previous Work: Imbalanced datasets</A>
+<LI><A NAME="tex2html47"
+ HREF="node4.html#SECTION00040000000000000000">
+SMOTE: Synthetic Minority Over-sampling TEchnique</A>
+<UL>
+<LI><A NAME="tex2html48"
+ HREF="node5.html#SECTION00041000000000000000">
+Minority over-sampling with replacement</A>
+<LI><A NAME="tex2html49"
+ HREF="node6.html#SECTION00042000000000000000">
+SMOTE</A>
+<LI><A NAME="tex2html50"
+ HREF="node7.html#SECTION00043000000000000000">
+Under-sampling and SMOTE Combination</A>
+</UL>
+<LI><A NAME="tex2html51"
+ HREF="node8.html#SECTION00050000000000000000">
+Experiments</A>
+<UL>
+<LI><A NAME="tex2html52"
+ HREF="node9.html#SECTION00051000000000000000">
+Datasets</A>
+<LI><A NAME="tex2html53"
+ HREF="node10.html#SECTION00052000000000000000">
+ROC Creation</A>
+<LI><A NAME="tex2html54"
+ HREF="node11.html#SECTION00053000000000000000">
+AUC Calculation</A>
+<LI><A NAME="tex2html55"
+ HREF="node12.html#SECTION00054000000000000000">
+Additional comparison to changing the decision thresholds</A>
+<LI><A NAME="tex2html56"
+ HREF="node13.html#SECTION00055000000000000000">
+Additional comparison to one-sided selection and SHRINK</A>
+</UL>
+<LI><A NAME="tex2html57"
+ HREF="node14.html#SECTION00060000000000000000">
+Future Work</A>
+<UL>
+<LI><A NAME="tex2html58"
+ HREF="node15.html#SECTION00061000000000000000">
+SMOTE-NC</A>
+<LI><A NAME="tex2html59"
+ HREF="node16.html#SECTION00062000000000000000">
+SMOTE-N</A>
+<LI><A NAME="tex2html60"
+ HREF="node17.html#SECTION00063000000000000000">
+Application of SMOTE to Information Retrieval</A>
+</UL>
+<LI><A NAME="tex2html61"
+ HREF="node18.html#SECTION00070000000000000000">
+Summary</A>
+<LI><A NAME="tex2html62"
+ HREF="node19.html#SECTION00080000000000000000">
+Acknowledgments</A>
+<LI><A NAME="tex2html63"
+ HREF="node20.html#SECTION00090000000000000000">
+Appendix A. ROC graphs for Oil Dataset</A>
+<LI><A NAME="tex2html64"
+ HREF="node21.html#SECTION000100000000000000000">
+References</A>
+<LI><A NAME="tex2html65"
+ HREF="node22.html#SECTION000110000000000000000">
+About this document ... </A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html42"
+ HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="next_motif.gif"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="up_motif_gr.gif"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="previous_motif_gr.gif">   
+<BR>
+<B> Next:</B> <A NAME="tex2html43"
+ HREF="node1.html">Introduction</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Nitesh Chawla (CS)</I>
+<BR><I>6/2/2002</I>
+</ADDRESS>
+</BODY>
+</HTML>
