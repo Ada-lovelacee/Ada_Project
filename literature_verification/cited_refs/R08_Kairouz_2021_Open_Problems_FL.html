@@ -1,0 +1,862 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="nexus-font-support">
+
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="google" content="nositelinkssearchbox"/>
+    <meta name="tdm-reservation" content="0">
+    <title>
+        Advances and open problems in federated learning
+      -  Princeton University</title>
+    
+    
+    
+
+
+
+<meta property="og:site_name" content="Princeton University">
+
+
+    <meta property="og:title" content="Advances and open problems in federated learning"/>
+
+
+<meta property="og:url" content="https://collaborate.princeton.edu/en/publications/advances-and-open-problems-in-federated-learning/">
+<meta property="og:locale" content="en_US">
+
+
+
+
+    
+        <meta property="og:image" content="https://collaborate.princeton.edu/skin/headerImage/">
+    
+
+
+
+
+    
+        <meta property="og:type" content="article">
+    
+
+    
+
+    
+
+
+    <link rel="stylesheet" href="/assets/application-55d25fb90de998a96487ae10de870bd6.css" />
+    
+    
+        <link rel="shortcut icon" href="/skin/favIcon/"/>
+    
+    <link href="/skin/css/" rel="stylesheet"/>
+    
+    <script src="/skin/script/" type="text/javascript"></script>
+    <script type="text/javascript" src="/assets/application-34cc2221eabdb23f03948cb449f4d1ca.js" ></script>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/assets/html5shiv.min-ca5300beead9a4a9d2c9c584a9016410.js" ></script>
+    <script type="text/javascript" src="/assets/respond.min-678d372b349e434d9923e1b591f14a1e.js" ></script>
+    <![endif]-->
+    
+        
+        
+        <meta name="citation_title" content="Advances and open problems in federated learning"></meta><meta name="citation_author" content="Peter Kairouz"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_author" content="H. Brendan McMahan"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_author" content="Brendan Avent"></meta><meta name="citation_author_institution" content="USC"></meta><meta name="citation_author" content="Aurélien Bellet"></meta><meta name="citation_author_institution" content="Institut national de recherche en informatique et en automatique"></meta><meta name="citation_author" content="Mehdi Bennis"></meta><meta name="citation_author_institution" content="University of Oulu"></meta><meta name="citation_author" content="Arjun Nitin Bhagoji"></meta><meta name="citation_author_institution" content="Princeton University"></meta><meta name="citation_author" content="Kallista Bonawitz"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_author" content="Zachary Charles"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_author" content="Graham Cormode"></meta><meta name="citation_author_institution" content="University of Warwick"></meta><meta name="citation_author" content="Rachel Cummings"></meta><meta name="citation_author_institution" content="Georgia Tech."></meta><meta name="citation_author" content="Rafael G.L. D'Oliveira"></meta><meta name="citation_author_institution" content="Rutgers University"></meta><meta name="citation_author" content="Hubert Eichner"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_author" content="Salim El Rouayheb"></meta><meta name="citation_author_institution" content="Rutgers University"></meta><meta name="citation_author" content="David Evans"></meta><meta name="citation_author_institution" content="University of Virginia"></meta><meta name="citation_author" content="Josh Gardner"></meta><meta name="citation_author_institution" content="University of Washington"></meta><meta name="citation_author" content="Zachary Garrett"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_author" content="Adrià Gascón"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_author" content="Badih Ghazi"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_author" content="Phillip B. Gibbons"></meta><meta name="citation_author_institution" content="CMU"></meta><meta name="citation_author" content="Marco Gruteser"></meta><meta name="citation_author_institution" content="Rutgers University"></meta><meta name="citation_author" content="Zaid Harchaoui"></meta><meta name="citation_author_institution" content="University of Washington"></meta><meta name="citation_author" content="Chaoyang He"></meta><meta name="citation_author_institution" content="USC"></meta><meta name="citation_author" content="Lie He"></meta><meta name="citation_author_institution" content="EPFL"></meta><meta name="citation_author" content="Zhouyuan Huo"></meta><meta name="citation_author_institution" content="University of Pittsburgh"></meta><meta name="citation_author" content="Ben Hutchinson"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_author" content="Justin Hsu"></meta><meta name="citation_author_institution" content="University of Wisconsin-Madison"></meta><meta name="citation_author" content="Martin Jaggi"></meta><meta name="citation_author_institution" content="EPFL"></meta><meta name="citation_author" content="Tara Javidi"></meta><meta name="citation_author_institution" content="University of California at San Diego"></meta><meta name="citation_author" content="Gauri Joshi"></meta><meta name="citation_author_institution" content="CMU"></meta><meta name="citation_author" content="Mikhail Khodak"></meta><meta name="citation_author_institution" content="CMU"></meta><meta name="citation_author" content="Jakub Konecní"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_author" content="Aleksandra Korolova"></meta><meta name="citation_author_institution" content="USC"></meta><meta name="citation_author" content="Farinaz Koushanfar"></meta><meta name="citation_author_institution" content="University of California at San Diego"></meta><meta name="citation_author" content="Sanmi Koyejo"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_author_institution" content="UIUC"></meta><meta name="citation_author" content="Tancrède Lepoint"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_author" content="Yang Liu"></meta><meta name="citation_author_institution" content="NTU"></meta><meta name="citation_author" content="Prateek Mittal"></meta><meta name="citation_author_institution" content="Electrical and Computer Engineering"></meta><meta name="citation_author_institution" content="Language&amp; Intelligence Initiat"></meta><meta name="citation_author_institution" content="NextG"></meta><meta name="citation_author" content="Mehryar Mohri"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_author" content="Richard Nock"></meta><meta name="citation_author_institution" content="ANU"></meta><meta name="citation_author" content="Ayfer Özgür"></meta><meta name="citation_author" content="Rasmus Pagh"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_author_institution" content="IT University of Copenhagen"></meta><meta name="citation_author" content="Hang Qi"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_author" content="Daniel Ramage"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_author" content="Ramesh Raskar"></meta><meta name="citation_author_institution" content="MIT"></meta><meta name="citation_author" content="Mariana Raykova"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_author" content="Dawn Song"></meta><meta name="citation_author_institution" content="University of California at Berkeley"></meta><meta name="citation_author" content="Weikang Song"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_author" content="Sebastian U. Stich"></meta><meta name="citation_author_institution" content="EPFL"></meta><meta name="citation_author" content="Ziteng Sun"></meta><meta name="citation_author_institution" content="Cornell"></meta><meta name="citation_author" content="Ananda Theertha Suresh"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_author" content="Florian Tramèr"></meta><meta name="citation_author" content="Praneeth Vepakomma"></meta><meta name="citation_author_institution" content="MIT"></meta><meta name="citation_author" content="Jianyu Wang"></meta><meta name="citation_author_institution" content="CMU"></meta><meta name="citation_author" content="Li Xiong"></meta><meta name="citation_author_institution" content="Emory"></meta><meta name="citation_author" content="Zheng Xu"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_author" content="Qiang Yang"></meta><meta name="citation_author_institution" content="Hong Kong University of Science and Technology"></meta><meta name="citation_author" content="Felix X. Yu"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_author" content="Han Yu"></meta><meta name="citation_author_institution" content="NTU"></meta><meta name="citation_author" content="Sen Zhao"></meta><meta name="citation_author_institution" content="Alphabet Inc."></meta><meta name="citation_publication_date" content="2021/06/23"></meta><meta name="citation_online_date" content="2025/08/20"></meta><meta name="citation_doi" content="10.1561/2200000083"></meta><meta name="citation_language" content="English (US)"></meta><meta name="citation_journal_title" content="Foundations and Trends in Machine Learning"></meta><meta name="citation_issn" content="1935-8237"></meta><meta name="citation_publisher" content="Now Publishers Inc"></meta><meta name="citation_volume" content="14"></meta><meta name="citation_issue" content="1-2"></meta><meta name="citation_firstpage" content="1"></meta><meta name="citation_lastpage" content="210"></meta>
+        <script src="/assets/Chart.min-27bff060c3e539ceb22e763c8f2e9e10.js"></script>
+        <script src="/assets/jquery.content-chart-9c09bb79ba3fc3829b6478d0e114f737.js"></script>
+        
+    
+    
+    <!-- Google Analytics: No account ID (G) found -->
+    <script src="//assets.adobedtm.com/4a848ae9611a/ea83f870454d/launch-af020409b299.min.js" async=""></script>
+    <script>try {(function() {
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:2571816,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+})();} catch(e) {if(console) { console.log(e) } }</script>
+    
+</head>
+
+<body class="" data-page="publications">
+
+<div id="aria-polite" aria-live="polite"></div>
+<div id="aria-assertive" aria-live="assertive"></div>
+
+<a href="#main-navigation" class="sr-only sr-only-focusable">Skip to main navigation</a>
+
+    <a href="#main-search" class="sr-only sr-only-focusable">Skip to search</a>
+
+<a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+
+
+
+
+
+
+    <header class="header" id="page-header">
+        <div class="primary  ">
+            <div class="container">
+                
+                <a href="/en/" class="logo">
+                    
+                        <span class="sr-only">Princeton University Home</span>
+                        <img src="/skin/headerImage/" alt="Princeton University Logo"/>
+                    
+                </a>
+                
+                    <ul class="header-tools ">
+                        
+                            <li class="help-and-faq">
+                                <a href="https://researchdevelopment.princeton.edu/research-with-princeton" target="_blank">
+                                    <i class="icon icon-lifebuoy" aria-hidden="true"></i>
+                                    <span class="label">Help &amp; FAQ</span>
+                                    <span class="sr-only">&nbsp; Link opens in a new tab</span>
+                                </a>
+                            </li>
+                        
+                        
+                    </ul>
+                
+                
+                
+            </div>
+        </div>
+
+        
+            <div class="header-search">
+                
+<form action="/en/searchAll/index/advances-and-open-problems-in-federated-learning/" method="get"
+      class="search-form" id="search-everything">
+
+    <div class="global-search-wrapper">
+        <div class="global-search mini">
+            <div class="field-button-wrapper">
+                <div class="search-cell search-field">
+                    <label for="main-search" class="sr-only">Search content at Princeton University</label>
+                    <input id="main-search" class="search-field" value="" name="search"
+                           placeholder="Search"/>
+                </div>
+
+                <div class="search-submit">
+                    <button type="submit" aria-label="Search">
+                        <i class="icon icon-magnifying-glass" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    $(function () {
+        var searchForm = $("#search-everything");
+        var searchField = $(".search-field", searchForm);
+        searchForm.on("submit", function () {
+            var field = searchField.find("input");
+            var searchString = field.val();
+
+            // No enter key submit nothing :-)
+            if (!searchString) return false;
+
+            if (searchString.length >= 200) {
+                searchForm.attr("method", "post");
+                searchForm.attr("action", "/en/concepts/copypaste/");
+                field.attr("name", "text");
+            }
+        });
+    });
+</script>
+            </div>
+        
+
+
+        
+        
+            <div class="subMenu">
+                <div class="secondary">
+                    <div class="container">
+                        <nav id="main-navigation" aria-label="Main navigation" class="content-navigation three-third">
+                            <ul data-value="More" role="menubar" aria-label="Main navigation">
+                                <li class="" role="none">
+                                    <a href="/en/" role="menuitem" tabindex="-1">Home</a>
+                                </li>
+
+                                
+                                    <li class="" role="none">
+                                        <a class="portal_link" tabindex="-1" role="menuitem" href="/en/persons/"><span>Profiles</span></a>
+                                    </li>
+                                
+                                    <li class="" role="none">
+                                        <a class="portal_link" tabindex="-1" role="menuitem" href="/en/organisations/"><span>Research units</span></a>
+                                    </li>
+                                
+                                    <li class="" role="none">
+                                        <a class="portal_link" tabindex="-1" role="menuitem" href="/en/equipments/"><span>Facilities</span></a>
+                                    </li>
+                                
+                                    <li class="" role="none">
+                                        <a class="portal_link" tabindex="-1" role="menuitem" href="/en/projects/"><span>Projects</span></a>
+                                    </li>
+                                
+                                    <li class="selected" role="none">
+                                        <a class="portal_link" tabindex="0" role="menuitem" href="/en/publications/"><span>Research output</span></a>
+                                    </li>
+                                
+                                    <li class="" role="none">
+                                        <a class="portal_link" tabindex="-1" role="menuitem" href="/en/clippings/"><span>Press/Media</span></a>
+                                    </li>
+                                
+                            </ul>
+                        </nav>
+
+                    </div>
+                </div>
+            </div>
+        
+    </header>
+
+    <main id="page-content">
+        
+    <div class="page-section page-section-publications page-section-publications-view ">
+
+        
+        
+        
+        
+        <section
+                class="page-section-header page-section-header-publications page-section-header-publications-view
+                 no-backdrop-image"
+                data-stickyheader=""
+                style="">
+            
+            
+        
+
+
+<div class="container">
+    <div class="row">
+        <div class="introduction no-metrics">
+            <div class="rendering"><h1><span>Advances and open problems in federated learning</span></h1></div>
+            <div class="rendering rendering_researchoutput  rendering_researchoutput_associatespersonsclassifiedportal rendering_contributiontojournal rendering_associatespersonsclassifiedportal rendering_contributiontojournal_associatespersonsclassifiedportal"><ul class="relations persons"><li>Peter Kairouz</li><li>, H. Brendan McMahan</li><li>, Brendan Avent</li><li>, Aurélien Bellet</li><li>, Mehdi Bennis</li><li>, Arjun Nitin Bhagoji</li><li>, Kallista Bonawitz</li><li>, Zachary Charles</li><li>, Graham Cormode</li><li>, Rachel Cummings</li><li>, Rafael G.L. D'Oliveira</li><li>, Hubert Eichner</li><li>, Salim El Rouayheb</li><li>, David Evans</li><li>, Josh Gardner</li><li>, Zachary Garrett</li><li>, Adrià Gascón</li><li>, Badih Ghazi</li><li>, Phillip B. Gibbons</li><li>, Marco Gruteser</li><span class="common_hidden publication_authors_full_inline_list">Zaid Harchaoui, Chaoyang He, Lie He, Zhouyuan Huo, Ben Hutchinson, Justin Hsu, Martin Jaggi, Tara Javidi, Gauri Joshi, Mikhail Khodak, Jakub Konecní, <a rel="Person" href="https://collaborate.princeton.edu/en/persons/aleksandra-korolova/" class="link person"><span>Aleksandra Korolova</span></a>, Farinaz Koushanfar, Sanmi Koyejo, Tancrède Lepoint, Yang Liu, <a rel="Person" href="https://collaborate.princeton.edu/en/persons/prateek-mittal/" class="link person"><span>Prateek Mittal</span></a>, Mehryar Mohri, Richard Nock, Ayfer Özgür, Rasmus Pagh, Hang Qi, Daniel Ramage, Ramesh Raskar, Mariana Raykova, Dawn Song, Weikang Song, Sebastian U. Stich, Ziteng Sun, Ananda Theertha Suresh, Florian Tramèr, Praneeth Vepakomma, Jianyu Wang, Li Xiong, Zheng Xu, Qiang Yang, Felix X. Yu, Han Yu, Sen Zhao</span><button aria-expanded="" class="author-link btn show" aria-label="Show all related authors" aria-pressed="" data-customdata="Author list shown, click to hide author list"><span>Show 39 others</span></button><button aria-expanded="" class="author-link btn hide" aria-label="Hide all related authors" aria-pressed="" data-customdata="Author list hidden, click to show author list"><span>Show less</span></button></ul></div>
+            <div class="rendering rendering_researchoutput  rendering_researchoutput_associatesorganisationsportal rendering_contributiontojournal rendering_associatesorganisationsportal rendering_contributiontojournal_associatesorganisationsportal"><ul class="relations organisations"><li class="department"><a rel="Organisation" href="https://collaborate.princeton.edu/en/organisations/electrical-and-computer-engineering/" class="link"><span>Electrical and Computer Engineering</span></a></li><li class="department"><a rel="Organisation" href="https://collaborate.princeton.edu/en/organisations/princeton-language-and-intelligence-pli/" class="link"><span>Princeton Language and Intelligence (PLI)</span></a></li><li class="department"><a rel="Organisation" href="https://collaborate.princeton.edu/en/organisations/nextg/" class="link"><span>NextG</span></a></li></ul></div>
+            
+            <div class="rendering rendering_researchoutput  rendering_researchoutput_publicationcontenttyperendererportalng rendering_contributiontojournal rendering_publicationcontenttyperendererportalng rendering_contributiontojournal_publicationcontenttyperendererportalng"><p class="type"><span class="type_family">Research output<span class="type_family_sep">: </span></span><span class="type_classification_parent">Contribution to journal<span class="type_parent_sep"> › </span></span><span class="type_classification">Review article</span><span class="type_classification"><span class="type_parent_sep"> › </span>peer-review</span></p></div>
+        </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="publication-metrics" role="region" aria-label="Publication metrics section">
+        
+            <div class="metrics-container">
+                
+                    <div class="metrics-wrap metrics-top one">
+                        
+                            <div class="metric scopus-citations">
+                                
+                                    <a target="_blank" href="https://www.scopus.com/pages/publications/85108873867#tab=citedBy" aria-label="Source: Scopus: 5131">
+                                
+                                <span class="count">5131</span>
+                                
+                                    <span class="sr-only">&nbsp; Link opens in a new tab</span> </a>
+                                
+                                <span class="label">Scopus 
+ citations</span>
+                            </div>
+                        
+                        
+                    </div>
+                
+                
+                    <div class="metrics-wrap metrics-bottom ">
+                        
+                            <div class="metric metric-plum-x">
+                                <a href="https://plu.mx/plum/a/?doi=10.1561/2200000083" class="plumx-plum-print-popup" data-on-empty="plumXError" data-on-fail="plumXError" data-on-success="plumXSuccess" data-popup="left" data-hide-when-empty="true" data-site="plum"
+                                   data-badge="false"></a>
+                            </div>
+                        
+
+                        
+                            <div class="metric metric-altmetric">
+                                
+                                    <div data-badge-popover="top" data-badge-type="donut" data-doi="10.1561/2200000083" data-hide-no-mentions="true" data-link-target='_blank'
+                                         class="altmetric-embed"></div>
+                                
+                            </div>
+                        
+                    </div>
+                
+            </div>
+        
+    </div>
+
+
+    </div>
+
+</div>
+<div class="subMenu">
+    <div class="content-profile-navigation">
+    <div class="container">
+        <nav role="navigation">
+            <ul role="menubar">
+                <li class="selected" role="none">
+                    <a class="portal_link" role="menuitem" href="/en/publications/advances-and-open-problems-in-federated-learning/"><span>
+                        <i class="icon icon-publication" aria-hidden="true"></i>
+                        <span class="label">Overview</span>
+                    </span></a>
+                </li>
+                
+                    <li class="" role="none">
+                        <a class="portal_link" role="menuitem" href="/en/publications/advances-and-open-problems-in-federated-learning/fingerprints/"><span>
+                            <i class="icon icon-fingerprint" aria-hidden="true"></i>
+                            <span class="label">Fingerprint</span>
+                        </span></a>
+                    </li>
+                
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+
+            </ul>
+        </nav>
+    </div>
+    </div>
+</div>
+
+    
+        </section>
+
+        <div id="main-content"
+             class="page-section-content page-section-content-publications page-section-content-publications-view  no-margin ">
+            
+        <section class="page-section content-relation-section">
+            <div class="container">
+                <div class="clearfix">
+                    <div class="content-content publication-content">
+                        
+                        
+                            <h2 class="subheader">Abstract</h2>
+                        <div class="rendering rendering_researchoutput  rendering_researchoutput_abstractportal rendering_contributiontojournal rendering_abstractportal rendering_contributiontojournal_abstractportal"><div class="textblock"><p>Federated learning (FL) is a machine learning setting where many clients (e.g., mobile devices or whole organizations) collaboratively train a model under the orchestration of a central server (e.g., service provider), while keeping the training data decentralized. FL embodies the principles of focused data collection and minimization, and can mitigate many of the systemic privacy risks and costs resulting from traditional, centralized machine learning and data science approaches. Motivated by the explosive growth in FL research, this monograph discusses recent advances and presents an extensive collection of open problems and challenges.</p></div></div>
+                        <div class="rendering rendering_researchoutput  rendering_researchoutput_detailsportal rendering_contributiontojournal rendering_detailsportal rendering_contributiontojournal_detailsportal"><div class="systematicreview"><table class="properties"><tbody><tr class="language"><th scope="row">Original language</th><td>English (US)</td></tr><tr><th scope="row">Pages (from-to)</th><td>1-210</td></tr><tr class="numberofpages"><th scope="row">Number of pages</th><td>210</td></tr><tr><th scope="row">Journal</th><td><a rel="Journal" href="#" class="link"><span>Foundations and Trends in Machine Learning</span></a></td></tr><tr><th scope="row">Volume</th><td>14</td></tr><tr><th scope="row">Issue number</th><td>1-2</td></tr><tr class="digital_object_identifiers"><th scope="row">DOIs</th><td><ul class="relations digital_object_identifiers"><li><a onclick="window.open(this.href, '_blank','noopener,noreferrer'); return false;" href="https://doi.org/10.1561/2200000083" class="link"><span>https://doi.org/10.1561/2200000083</span></a> </li></ul></td></tr><tr class="status"><th scope="row">State</th><td><span class="prefix">Published - </span><span class="date">Jun 23 2021</span></td></tr></tbody></table></div></div>
+                        
+
+                        
+
+                        
+
+                        <div class="rendering rendering_keywordable rendering_expertkeywordgrouspbytypeportal rendering_keywordable_expertkeywordgrouspbytypeportal"><div class="keyword-group"><h2 class="subheader">All Science Journal Classification (ASJC) codes</h2><ul class="relations keywords"><li><span>Software</span></li><li><span>Human-Computer Interaction</span></li><li><span>Artificial Intelligence</span></li></ul></div></div>
+
+                    </div>
+
+                    <div class="content-sidebar publication-sidebar">
+                        
+                            <h2 class="subheader">Access to Document</h2>
+                        <div class="rendering rendering_researchoutput  rendering_researchoutput_publicationaccessrenderer rendering_contributiontojournal rendering_publicationaccessrenderer rendering_contributiontojournal_publicationaccessrenderer"><ul class="dois"><li class="open-access"><div class="doi"><a onclick="window.open(this.href, '_blank','noopener,noreferrer'); return false;" href="https://doi.org/10.1561/2200000083" class="link"><span>10.1561/2200000083</span></a></div></li></ul></div>
+
+                        
+
+                        
+
+                        
+                            <h2 class="subheader">Other files and links</h2>
+                        <div class="rendering rendering_researchoutput  rendering_researchoutput_publicationotherfilesandlinksrenderer rendering_contributiontojournal rendering_publicationotherfilesandlinksrenderer rendering_contributiontojournal_publicationotherfilesandlinksrenderer"><ul class="links"><li><div class="link"><a onclick="window.open(this.href, '_blank','noopener,noreferrer'); return false;" href="https://www.scopus.com/pages/publications/85108873867" class="link"><span>Link to publication in Scopus</span></a></div></li></ul></div>
+
+                        
+
+                        
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+            <section class="page-section content-relation-section publication-fingerprint">
+                <div class="container">
+                    <div class="header">
+                        <h2 class="section-title">
+                            <i class="icon icon-fingerprint" aria-hidden="true"></i>
+                            <span class="title">Fingerprint</span>
+                        </h2>
+                        <span class="sub-title">
+                            Dive into the research topics of 'Advances and open problems in federated learning'. Together they form a unique fingerprint.
+                        </span>
+                    </div>
+
+                    <ul class="publication-top-concepts" role="menubar"  aria-label="Related fingerprints">
+                        
+                            <li class="concept-badge-large-container dropdown-overflow" role="none">
+
+    <button tabindex="0"
+            class="concept-badge-large dropdown-toggle"
+            type="button"
+            role="menuitem"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="b74c20a2-bce1-4339-a474-13046fe0aa07"
+            data-concept-uuid="b74c20a2-bce1-4339-a474-13046fe0aa07"
+            data-rank-size="32"
+            data-rank-thickness="8"
+            data-rank-value="1.0"
+            data-summary="true"
+            data-summary-url="/en/concepts/summary/">
+        <span class="concept-wrapper" title="100%">
+            <span class="rank"></span>
+            <span class="concept">Federated Learning</span>
+            <span class="thesauri">Keyphrases</span>
+            <span class="value sr-only">100%</span>
+        </span>
+    </button>
+
+    <div class="dropdown-container"></div>
+
+</li>
+                        
+                            <li class="concept-badge-large-container dropdown-overflow" role="none">
+
+    <button tabindex="0"
+            class="concept-badge-large dropdown-toggle"
+            type="button"
+            role="menuitem"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="45bddae2-6359-4570-849b-e6541b42c155"
+            data-concept-uuid="45bddae2-6359-4570-849b-e6541b42c155"
+            data-rank-size="32"
+            data-rank-thickness="8"
+            data-rank-value="1.0"
+            data-summary="true"
+            data-summary-url="/en/concepts/summary/">
+        <span class="concept-wrapper" title="100%">
+            <span class="rank"></span>
+            <span class="concept">Mobile Device</span>
+            <span class="thesauri">Psychology</span>
+            <span class="value sr-only">100%</span>
+        </span>
+    </button>
+
+    <div class="dropdown-container"></div>
+
+</li>
+                        
+                            <li class="concept-badge-large-container dropdown-overflow" role="none">
+
+    <button tabindex="0"
+            class="concept-badge-large dropdown-toggle"
+            type="button"
+            role="menuitem"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="50622404-d050-432e-8c10-7172bf5a4ce2"
+            data-concept-uuid="50622404-d050-432e-8c10-7172bf5a4ce2"
+            data-rank-size="32"
+            data-rank-thickness="8"
+            data-rank-value="0.5"
+            data-summary="true"
+            data-summary-url="/en/concepts/summary/">
+        <span class="concept-wrapper" title="50%">
+            <span class="rank"></span>
+            <span class="concept">Machine Learning</span>
+            <span class="thesauri">Keyphrases</span>
+            <span class="value sr-only">50%</span>
+        </span>
+    </button>
+
+    <div class="dropdown-container"></div>
+
+</li>
+                        
+                            <li class="concept-badge-large-container dropdown-overflow" role="none">
+
+    <button tabindex="0"
+            class="concept-badge-large dropdown-toggle"
+            type="button"
+            role="menuitem"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="ada60102-54ab-44a6-9d61-77cd3065a77b"
+            data-concept-uuid="ada60102-54ab-44a6-9d61-77cd3065a77b"
+            data-rank-size="32"
+            data-rank-thickness="8"
+            data-rank-value="0.25"
+            data-summary="true"
+            data-summary-url="/en/concepts/summary/">
+        <span class="concept-wrapper" title="25%">
+            <span class="rank"></span>
+            <span class="concept">Service Provider</span>
+            <span class="thesauri">Keyphrases</span>
+            <span class="value sr-only">25%</span>
+        </span>
+    </button>
+
+    <div class="dropdown-container"></div>
+
+</li>
+                        
+                            <li class="concept-badge-large-container dropdown-overflow" role="none">
+
+    <button tabindex="0"
+            class="concept-badge-large dropdown-toggle"
+            type="button"
+            role="menuitem"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="8167742e-ba79-467d-87b6-9ceece49c80d"
+            data-concept-uuid="8167742e-ba79-467d-87b6-9ceece49c80d"
+            data-rank-size="32"
+            data-rank-thickness="8"
+            data-rank-value="0.25"
+            data-summary="true"
+            data-summary-url="/en/concepts/summary/">
+        <span class="concept-wrapper" title="25%">
+            <span class="rank"></span>
+            <span class="concept">Recent Advances</span>
+            <span class="thesauri">Keyphrases</span>
+            <span class="value sr-only">25%</span>
+        </span>
+    </button>
+
+    <div class="dropdown-container"></div>
+
+</li>
+                        
+                            <li class="concept-badge-large-container dropdown-overflow" role="none">
+
+    <button tabindex="0"
+            class="concept-badge-large dropdown-toggle"
+            type="button"
+            role="menuitem"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="5e02eaee-593f-401b-a286-cbdc90a8e282"
+            data-concept-uuid="5e02eaee-593f-401b-a286-cbdc90a8e282"
+            data-rank-size="32"
+            data-rank-thickness="8"
+            data-rank-value="0.25"
+            data-summary="true"
+            data-summary-url="/en/concepts/summary/">
+        <span class="concept-wrapper" title="25%">
+            <span class="rank"></span>
+            <span class="concept">Mobile Devices</span>
+            <span class="thesauri">Keyphrases</span>
+            <span class="value sr-only">25%</span>
+        </span>
+    </button>
+
+    <div class="dropdown-container"></div>
+
+</li>
+                        
+                            <li class="concept-badge-large-container dropdown-overflow" role="none">
+
+    <button tabindex="0"
+            class="concept-badge-large dropdown-toggle"
+            type="button"
+            role="menuitem"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="ddaae372-d2b7-4fe3-9104-8e84240d70aa"
+            data-concept-uuid="ddaae372-d2b7-4fe3-9104-8e84240d70aa"
+            data-rank-size="32"
+            data-rank-thickness="8"
+            data-rank-value="0.25"
+            data-summary="true"
+            data-summary-url="/en/concepts/summary/">
+        <span class="concept-wrapper" title="25%">
+            <span class="rank"></span>
+            <span class="concept">Explosive Growth</span>
+            <span class="thesauri">Keyphrases</span>
+            <span class="value sr-only">25%</span>
+        </span>
+    </button>
+
+    <div class="dropdown-container"></div>
+
+</li>
+                        
+                            <li class="concept-badge-large-container dropdown-overflow" role="none">
+
+    <button tabindex="0"
+            class="concept-badge-large dropdown-toggle"
+            type="button"
+            role="menuitem"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="0440dbd9-6c1d-49da-b9ac-853050dceabf"
+            data-concept-uuid="0440dbd9-6c1d-49da-b9ac-853050dceabf"
+            data-rank-size="32"
+            data-rank-thickness="8"
+            data-rank-value="0.25"
+            data-summary="true"
+            data-summary-url="/en/concepts/summary/">
+        <span class="concept-wrapper" title="25%">
+            <span class="rank"></span>
+            <span class="concept">Machine Data</span>
+            <span class="thesauri">Keyphrases</span>
+            <span class="value sr-only">25%</span>
+        </span>
+    </button>
+
+    <div class="dropdown-container"></div>
+
+</li>
+                        
+                    </ul>
+                    <div class="footer">
+                        <div class="view-all align-center">
+                            <a class="portal_link btn-primary btn-large" href="/en/publications/advances-and-open-problems-in-federated-learning/fingerprints/"><span>
+                                View full fingerprint
+                                <i class="icon icon-right-open-mini" aria-hidden="true"></i>
+                            </span></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+        <section class="page-section cite">
+            <div class="container">
+                <section class="publication-cite" aria-labelledby="publications-cite-title">
+    <h2 class="subheader" id="publications-cite-title">Cite this</h2>
+    <ul class="tabs" role="tablist" aria-label="Cite this">
+        
+            <li class="selected" role="tab" id="tab-0" aria-controls="cite-apa" tabindex="-1"  aria-selected="false" >
+                APA
+            </li>
+        
+            <li class="" role="tab" id="tab-1" aria-controls="cite-author" tabindex="-1"  aria-selected="false" >
+                Author
+            </li>
+        
+            <li class="" role="tab" id="tab-2" aria-controls="cite-BIBTEX" tabindex="-1"  aria-selected="false" >
+                BIBTEX
+            </li>
+        
+            <li class="" role="tab" id="tab-3" aria-controls="cite-harvard" tabindex="-1"  aria-selected="false" >
+                Harvard
+            </li>
+        
+            <li class="" role="tab" id="tab-4" aria-controls="cite-standard" tabindex="-1"  aria-selected="false" >
+                Standard
+            </li>
+        
+            <li class="" role="tab" id="tab-5" aria-controls="cite-RIS" tabindex="-1"  aria-selected="false" >
+                RIS
+            </li>
+        
+            <li class="" role="tab" id="tab-6" aria-controls="cite-vancouver" tabindex="-1"  aria-selected="false" >
+                Vancouver
+            </li>
+        
+    </ul>
+    <div class="tab-container">
+        
+            <div id="cite-apa" class="tab selected" role="tabpanel" aria-labelledby="tab-0" tabindex="-1" aria-hidden="true">
+                <div class="rendering rendering_researchoutput  rendering_researchoutput_apa rendering_contributiontojournal rendering_apa rendering_contributiontojournal_apa">Kairouz, P., McMahan, H. B., Avent, B., Bellet, A., Bennis, M., Bhagoji, A. N., Bonawitz, K., Charles, Z., Cormode, G., Cummings, R., D'Oliveira, R. G. L., Eichner, H., El Rouayheb, S., Evans, D., Gardner, J., Garrett, Z., Gascón, A., Ghazi, B., Gibbons, P. B., ... Zhao, S. (2021). <a rel="ContributionToJournal" href="https://collaborate.princeton.edu/en/publications/advances-and-open-problems-in-federated-learning/" class="link"><span>Advances and open problems in federated learning</span></a>. <span><em>Foundations and Trends in Machine Learning</em></span>, <em>14</em>(1-2), 1-210. <a onclick="window.open(this.href, '_blank','noopener,noreferrer'); return false;" href="https://doi.org/10.1561/2200000083" class="link"><span>https://doi.org/10.1561/2200000083</span></a></div>
+            </div>
+        
+            <div id="cite-author" class="tab " role="tabpanel" aria-labelledby="tab-1" tabindex="-1" aria-hidden="true">
+                <div class="rendering rendering_researchoutput  rendering_researchoutput_author rendering_contributiontojournal rendering_author rendering_contributiontojournal_author">Kairouz, Peter ; McMahan, H. Brendan ; Avent, Brendan et al. / <a rel="ContributionToJournal" href="https://collaborate.princeton.edu/en/publications/advances-and-open-problems-in-federated-learning/" class="link"><span><strong>Advances and open problems in federated learning</strong></span></a>. In: <a rel="Journal" href="#" class="link"><span>Foundations and Trends in Machine Learning</span></a>. 2021 ; Vol. 14, No. 1-2. pp. 1-210.</div>
+            </div>
+        
+            <div id="cite-BIBTEX" class="tab " role="tabpanel" aria-labelledby="tab-2" tabindex="-1" aria-hidden="true">
+                <div class="rendering rendering_researchoutput  rendering_researchoutput_bibtex rendering_contributiontojournal rendering_bibtex rendering_contributiontojournal_bibtex"><div>@article{5bc01ea2e90e4a989a1c5c39e673bd22,</div><div>  title     = "Advances and open problems in federated learning",</div><div>  abstract  = "Federated learning (FL) is a machine learning setting where many clients (e.g., mobile devices or whole organizations) collaboratively train a model under the orchestration of a central server (e.g., service provider), while keeping the training data decentralized. FL embodies the principles of focused data collection and minimization, and can mitigate many of the systemic privacy risks and costs resulting from traditional, centralized machine learning and data science approaches. Motivated by the explosive growth in FL research, this monograph discusses recent advances and presents an extensive collection of open problems and challenges.",</div><div>  author    = "Peter Kairouz and McMahan, \{H. Brendan\} and Brendan Avent and Aur{\'e}lien Bellet and Mehdi Bennis and Bhagoji, \{Arjun Nitin\} and Kallista Bonawitz and Zachary Charles and Graham Cormode and Rachel Cummings and D'Oliveira, \{Rafael G.L.\} and Hubert Eichner and \{El Rouayheb\}, Salim and David Evans and Josh Gardner and Zachary Garrett and Adri{\`a} Gasc{\'o}n and Badih Ghazi and Gibbons, \{Phillip B.\} and Marco Gruteser and Zaid Harchaoui and Chaoyang He and Lie He and Zhouyuan Huo and Ben Hutchinson and Justin Hsu and Martin Jaggi and Tara Javidi and Gauri Joshi and Mikhail Khodak and Jakub Konecn{\'i} and Aleksandra Korolova and Farinaz Koushanfar and Sanmi Koyejo and Tancr{\`e}de Lepoint and Yang Liu and Prateek Mittal and Mehryar Mohri and Richard Nock and Ayfer {\"O}zg{\"u}r and Rasmus Pagh and Hang Qi and Daniel Ramage and Ramesh Raskar and Mariana Raykova and Dawn Song and Weikang Song and Stich, \{Sebastian U.\} and Ziteng Sun and Suresh, \{Ananda Theertha\} and Florian Tram{\`e}r and Praneeth Vepakomma and Jianyu Wang and Li Xiong and Zheng Xu and Qiang Yang and Yu, \{Felix X.\} and Han Yu and Sen Zhao",</div><div>  note      = "Publisher Copyright: {\textcopyright} 2021 Georg Thieme Verlag. All rights reserved.",</div><div>  year      = "2021",</div><div>  month     = jun,</div><div>  day       = "23",</div><div>  doi       = "10.1561/2200000083",</div><div>  language  = "English (US)",</div><div>  volume    = "14",</div><div>  pages     = "1--210",</div><div>  journal   = "Foundations and Trends in Machine Learning",</div><div>  issn      = "1935-8237",</div><div>  publisher = "Now Publishers Inc",</div><div>  number    = "1-2",</div><p>}</p></div>
+            </div>
+        
+            <div id="cite-harvard" class="tab " role="tabpanel" aria-labelledby="tab-3" tabindex="-1" aria-hidden="true">
+                <div class="rendering rendering_researchoutput  rendering_researchoutput_harvard rendering_contributiontojournal rendering_harvard rendering_contributiontojournal_harvard">Kairouz, P, McMahan, HB, Avent, B, Bellet, A, Bennis, M, Bhagoji, AN, Bonawitz, K, Charles, Z, Cormode, G, Cummings, R, D'Oliveira, RGL, Eichner, H, El Rouayheb, S, Evans, D, Gardner, J, Garrett, Z, Gascón, A, Ghazi, B, Gibbons, PB, Gruteser, M, Harchaoui, Z, He, C, He, L, Huo, Z, Hutchinson, B, Hsu, J, Jaggi, M, Javidi, T, Joshi, G, Khodak, M, Konecní, J<a rel="Person" href="https://collaborate.princeton.edu/en/persons/aleksandra-korolova/" class="link"><span>, Korolova, A</span></a>, Koushanfar, F, Koyejo, S, Lepoint, T, Liu, Y<a rel="Person" href="https://collaborate.princeton.edu/en/persons/prateek-mittal/" class="link"><span>, Mittal, P</span></a>, Mohri, M, Nock, R, Özgür, A, Pagh, R, Qi, H, Ramage, D, Raskar, R, Raykova, M, Song, D, Song, W, Stich, SU, Sun, Z, Suresh, AT, Tramèr, F, Vepakomma, P, Wang, J, Xiong, L, Xu, Z, Yang, Q, Yu, FX, Yu, H &amp; Zhao, S 2021, '<a rel="ContributionToJournal" href="https://collaborate.princeton.edu/en/publications/advances-and-open-problems-in-federated-learning/" class="link harvard_title"><span>Advances and open problems in federated learning</span></a>', <span><em>Foundations and Trends in Machine Learning</em></span>, vol. 14, no. 1-2, pp. 1-210. <a onclick="window.open(this.href, '_blank','noopener,noreferrer'); return false;" href="https://doi.org/10.1561/2200000083" class="link"><span>https://doi.org/10.1561/2200000083</span></a></div>
+            </div>
+        
+            <div id="cite-standard" class="tab " role="tabpanel" aria-labelledby="tab-4" tabindex="-1" aria-hidden="true">
+                <div class="rendering rendering_researchoutput  rendering_researchoutput_standard rendering_contributiontojournal rendering_standard rendering_contributiontojournal_standard"><a rel="ContributionToJournal" href="https://collaborate.princeton.edu/en/publications/advances-and-open-problems-in-federated-learning/" class="link"><span><strong>Advances and open problems in federated learning.</strong></span></a> / Kairouz, Peter; McMahan, H. Brendan; Avent, Brendan et al. <br />In: <span>Foundations and Trends in Machine Learning</span>, Vol. 14, No. 1-2, 23.06.2021, p. 1-210.<p class="type"><span class="type_family">Research output<span class="type_family_sep">: </span></span><span class="type_classification_parent">Contribution to journal<span class="type_parent_sep"> › </span></span><span class="type_classification">Review article</span><span class="type_classification"><span class="type_parent_sep"> › </span>peer-review</span></p></div>
+            </div>
+        
+            <div id="cite-RIS" class="tab " role="tabpanel" aria-labelledby="tab-5" tabindex="-1" aria-hidden="true">
+                <div class="rendering rendering_researchoutput  rendering_researchoutput_ris rendering_contributiontojournal rendering_ris rendering_contributiontojournal_ris"><p>TY  - JOUR</p><p>T1  - Advances and open problems in federated learning</p><p>AU  - Kairouz, Peter</p><p>AU  - McMahan, H. Brendan</p><p>AU  - Avent, Brendan</p><p>AU  - Bellet, Aurélien</p><p>AU  - Bennis, Mehdi</p><p>AU  - Bhagoji, Arjun Nitin</p><p>AU  - Bonawitz, Kallista</p><p>AU  - Charles, Zachary</p><p>AU  - Cormode, Graham</p><p>AU  - Cummings, Rachel</p><p>AU  - D'Oliveira, Rafael G.L.</p><p>AU  - Eichner, Hubert</p><p>AU  - El Rouayheb, Salim</p><p>AU  - Evans, David</p><p>AU  - Gardner, Josh</p><p>AU  - Garrett, Zachary</p><p>AU  - Gascón, Adrià</p><p>AU  - Ghazi, Badih</p><p>AU  - Gibbons, Phillip B.</p><p>AU  - Gruteser, Marco</p><p>AU  - Harchaoui, Zaid</p><p>AU  - He, Chaoyang</p><p>AU  - He, Lie</p><p>AU  - Huo, Zhouyuan</p><p>AU  - Hutchinson, Ben</p><p>AU  - Hsu, Justin</p><p>AU  - Jaggi, Martin</p><p>AU  - Javidi, Tara</p><p>AU  - Joshi, Gauri</p><p>AU  - Khodak, Mikhail</p><p>AU  - Konecní, Jakub</p><p>AU  - Korolova, Aleksandra</p><p>AU  - Koushanfar, Farinaz</p><p>AU  - Koyejo, Sanmi</p><p>AU  - Lepoint, Tancrède</p><p>AU  - Liu, Yang</p><p>AU  - Mittal, Prateek</p><p>AU  - Mohri, Mehryar</p><p>AU  - Nock, Richard</p><p>AU  - Özgür, Ayfer</p><p>AU  - Pagh, Rasmus</p><p>AU  - Qi, Hang</p><p>AU  - Ramage, Daniel</p><p>AU  - Raskar, Ramesh</p><p>AU  - Raykova, Mariana</p><p>AU  - Song, Dawn</p><p>AU  - Song, Weikang</p><p>AU  - Stich, Sebastian U.</p><p>AU  - Sun, Ziteng</p><p>AU  - Suresh, Ananda Theertha</p><p>AU  - Tramèr, Florian</p><p>AU  - Vepakomma, Praneeth</p><p>AU  - Wang, Jianyu</p><p>AU  - Xiong, Li</p><p>AU  - Xu, Zheng</p><p>AU  - Yang, Qiang</p><p>AU  - Yu, Felix X.</p><p>AU  - Yu, Han</p><p>AU  - Zhao, Sen</p><p>N1  - Publisher Copyright:
+© 2021 Georg Thieme Verlag. All rights reserved.</p><p>PY  - 2021/6/23</p><p>Y1  - 2021/6/23</p><p>N2  - Federated learning (FL) is a machine learning setting where many clients (e.g., mobile devices or whole organizations) collaboratively train a model under the orchestration of a central server (e.g., service provider), while keeping the training data decentralized. FL embodies the principles of focused data collection and minimization, and can mitigate many of the systemic privacy risks and costs resulting from traditional, centralized machine learning and data science approaches. Motivated by the explosive growth in FL research, this monograph discusses recent advances and presents an extensive collection of open problems and challenges.</p><p>AB  - Federated learning (FL) is a machine learning setting where many clients (e.g., mobile devices or whole organizations) collaboratively train a model under the orchestration of a central server (e.g., service provider), while keeping the training data decentralized. FL embodies the principles of focused data collection and minimization, and can mitigate many of the systemic privacy risks and costs resulting from traditional, centralized machine learning and data science approaches. Motivated by the explosive growth in FL research, this monograph discusses recent advances and presents an extensive collection of open problems and challenges.</p><p>UR  - https://www.scopus.com/pages/publications/85108873867</p><p>UR  - https://www.scopus.com/pages/publications/85108873867#tab=citedBy</p><p>U2  - 10.1561/2200000083</p><p>DO  - 10.1561/2200000083</p><p>M3  - Review article</p><p>AN  - SCOPUS:85108873867</p><p>SN  - 1935-8237</p><p>VL  - 14</p><p>SP  - 1</p><p>EP  - 210</p><p>JO  - Foundations and Trends in Machine Learning</p><p>JF  - Foundations and Trends in Machine Learning</p><p>IS  - 1-2</p><p>ER  - </p></div>
+            </div>
+        
+            <div id="cite-vancouver" class="tab " role="tabpanel" aria-labelledby="tab-6" tabindex="-1" aria-hidden="true">
+                <div class="rendering rendering_researchoutput  rendering_researchoutput_vancouver rendering_contributiontojournal rendering_vancouver rendering_contributiontojournal_vancouver">Kairouz P, McMahan HB, Avent B, Bellet A, Bennis M, Bhagoji AN et al. <span class="title"><a rel="ContributionToJournal" href="https://collaborate.princeton.edu/en/publications/advances-and-open-problems-in-federated-learning/" class="link"><span>Advances and open problems in federated learning</span></a></span>. <span>Foundations and Trends in Machine Learning</span>. 2021 Jun 23;14(1-2):1-210. doi: 10.1561/2200000083</div>
+            </div>
+        
+
+        <script>
+            $(function() {
+                $(".tab-container .rendering a:not([href^='http://dx.doi.org'])").contents().unwrap();
+            });
+        </script>
+    </div>
+</section>
+
+            </div>
+        </section>
+        <script>
+    $(function () {
+        if($('.publication-sidebar').length > 0){
+            if($('a.document-link').length === 0){
+                $(".metrics-top").addClass("one");
+                $('div.metrics-downloads').remove();
+            }
+        }
+    });
+
+    function plumXError(e) {
+        $(e).closest('.metric-plum-x').closest('.metrics-bottom').addClass('one');
+        $(e).closest('.metric-plum-x').remove();
+    }
+    $('div.altmetric-embed').on('altmetric:hide', function () {
+        $(this).closest('.metric-altmetric').closest('.metrics-bottom').addClass('one');
+        $(this).closest('.metric-altmetric').remove();
+    });
+</script>
+        
+
+
+
+
+
+    
+        </div>
+    </div>
+
+    <div id="new-modal-overlay"></div>
+    
+    </main>
+
+    <footer id="page-footer" class="main-footer">
+        <div class="container">
+            <div class="footer-wrapper">
+                <div class="content-navigation three-third">
+                    <div dir="ltr" class="footer-columns">
+                        
+                            <div class="footer-column">
+                                <div class="footer-icon">
+                                    <img src="/skin/footerIcon/" alt="Princeton University Logo"/>
+                                </div>
+                            </div>
+                        
+                        <div class="footer-column">
+                            <p>
+                                Powered by <a href="http://www.elsevier.com/online-tools/research-intelligence/products-and-services/pure" target="_blank">Pure <span class="sr-only">Link opens in a new tab</span></a>, <a href="http://www.scopus.com/" target="_blank">Scopus <span class="sr-only">Link opens in a new tab</span></a> & <a href="https://www.elsevier.com/products/elsevier-fingerprint-engine" target="_blank">Elsevier Fingerprint Engine&trade; <span class="sr-only">Link opens in a new tab</span></a> 
+                            </p>
+
+                            <p>
+                                All content on this site: Copyright &copy; 2026 Princeton University, its licensors, and contributors. All rights are reserved, including those for text and data mining, AI training, and similar technologies. For all open access content, the relevant licensing terms apply
+                            </p>
+
+                            <p>We use cookies to help provide and enhance our service and tailor content. By continuing you agree to the <a href="/en/about/cookies/">use of cookies</a></p>
+                            
+                            
+                            <p></p>
+                        </div>
+
+                        <div class="footer-column">
+                            
+                            
+                            
+                                <p><a href="/en/web-accessibility/" rel="nofollow" target="_blank">About web accessibility <span class="sr-only">&nbsp; Link opens in a new tab</span></a></p>
+                            
+
+                            <p>
+                                
+                            </p>
+
+                            <p>
+                                
+                            </p>
+
+                            <p>
+                                <a href="https://elsevier.responsibledisclosure.com/hc/en-us/requests/new" target="_blank" rel="nofollow">Report vulnerability <span class="sr-only">&nbsp; Link opens in a new tab</span></a>
+                            </p>
+                        </div>
+
+                        
+                            <div class="footer-column">
+                                
+                                    
+                                        <p>
+                                            <a href="/en/contact/index/"> Contact us</a>
+                                        </p>
+                                    
+                                
+
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="back-to-top">
+            <a href="#" class="back-to-top" aria-label="Go to top"><i class="icon icon-up-open"></i></a>
+        </div>
+    </footer>
+
+
+    <script src="//d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>
+
+
+
+    
+
+    
+
+
+<script>window.appData = window.appData || [];</script><script type="text/javascript">
+try {(function() {
+appData.push({...{"page":{"businessUnit":"ELS:RP:ST","cmsName":"Pure Portal","environment":"prod","language":"en","loadTime":"217","loadTimestamp":"1776318497673","name":"pure portal:publications:view","noTracking":"false","productName":"PR","type":"CP-CA"},"visitor":{"accountId":"","accountName":"pr:Princeton University","ipAddress":"","accessType":"pr:ANON_GUEST","loginStatus":"anonymous"},"content":[{"id":"5bc01ea2-e90e-4a98-9a1c-5c39e673bd22","title":"Advances and open problems in federated learning","recordType":"researchoutput"}]}, event: "pageLoad"});})();} catch(e) {if(console) { console.log(e) } }</script>
+<script>try {(function() {
+window.appData = window.appData || [];
+})();} catch(e) {if(console) { console.log(e) } }</script>
+
+</body>
+</html>
+

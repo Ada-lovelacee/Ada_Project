@@ -1,130 +1,201 @@
 """
 Federated Learning for Diabetes Prediction by Ada, April 2026.
 
-Centralized Training
-使用全部数据训练，供与联邦学习做对比用：模型、超参、训练逻辑与联邦客户端一致
+Centralized training baseline with cleaner train/val/test splits and
+report-ready classification metrics.
 """
 
+import copy
+import csv
+import os
+
+import matplotlib.pyplot as plt
+import pandas as pd
 import torch
 
-import csv, os
-import pandas as pd
-import matplotlib.pyplot as plt
+from data_and_simulation import get_centralized_dataloaders, write_split_summary
+from model import SimpleMLP, evaluate_model, flatten_metrics, train_model
 
-from data_and_simulation import load_csv_data, get_dataloaders, CSV_FILENAME
-from model import SimpleMLP
 
-# ===================== 超参（和联邦客户端一样）=====================
 BATCH_SIZE = 16
 LR = 0.001
-EPOCHS = 10          
-DATASET_SPLIT = 0.8  # 80%训练，20%测试
-# =====================================================================
+EPOCHS = 10
+SELECTION_METRIC = "f1"
 
-# 日志初始化
+RESULTS_DIR = os.path.join(os.path.dirname(__file__), "results")
+CENTRALIZED_LOG_PATH = os.path.join(RESULTS_DIR, "centralized_metrics.csv")
+CENTRALIZED_TEST_PATH = os.path.join(RESULTS_DIR, "centralized_test_metrics.csv")
+SPLIT_SUMMARY_PATH = os.path.join(RESULTS_DIR, "data_split_summary.csv")
+
+
+def _ensure_results_dir():
+    os.makedirs(RESULTS_DIR, exist_ok=True)
+
+
 def init_central_log():
-    log_filename = "./results/centralized_metrics.csv"
-    with open(log_filename, 'w', newline='', encoding='utf-8') as f:
-        writer = csv.writer(f)
-        writer.writerow(["epoch", "train_loss", "test_loss", "test_accuracy"])
-    return log_filename
+    _ensure_results_dir()
+    fieldnames = [
+        "epoch",
+        "train_loss",
+        "val_loss",
+        "val_accuracy",
+        "val_precision",
+        "val_recall",
+        "val_f1",
+        "val_roc_auc",
+        "val_tn",
+        "val_fp",
+        "val_fn",
+        "val_tp",
+    ]
 
-# 绘图
+    with open(CENTRALIZED_LOG_PATH, "w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer.writeheader()
+
+    return fieldnames
+
+
+def write_epoch_log(epoch, train_loss, val_metrics):
+    row = {"epoch": epoch, "train_loss": train_loss}
+    row.update(flatten_metrics(val_metrics, prefix="val"))
+
+    with open(CENTRALIZED_LOG_PATH, "a", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=list(row.keys()))
+        writer.writerow(row)
+
+
+def save_test_metrics(rows):
+    if not rows:
+        return
+
+    fieldnames = list(rows[0].keys())
+    with open(CENTRALIZED_TEST_PATH, "w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
+
+
 def plot_central_metrics():
-    df = pd.read_csv("./results/centralized_metrics.csv")
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8))
+    df = pd.read_csv(CENTRALIZED_LOG_PATH)
+    fig, axes = plt.subplots(3, 1, figsize=(10, 12))
 
-    ax1.plot(df["epoch"], df["train_loss"], label="Train Loss", marker='o', color='blue')
-    ax1.plot(df["epoch"], df["test_loss"], label="Test Loss", marker='s', color='red')
-    ax1.set_xlabel("Epoch")
-    ax1.set_ylabel("Loss")
-    ax1.set_title("Centralized Training Loss Trend")
-    ax1.legend()
-    ax1.grid(True)
+    axes[0].plot(df["epoch"], df["train_loss"], label="Train Loss", marker="o", color="blue")
+    axes[0].plot(df["epoch"], df["val_loss"], label="Val Loss", marker="s", color="red")
+    axes[0].set_xlabel("Epoch")
+    axes[0].set_ylabel("Loss")
+    axes[0].set_title("Centralized Training Loss")
+    axes[0].legend()
+    axes[0].grid(True)
 
-    ax2.plot(df["epoch"], df["test_accuracy"], label="Test Accuracy", marker='^', color='green')
-    ax2.set_xlabel("Epoch")
-    ax2.set_ylabel("Accuracy")
-    ax2.set_title("Centralized Training Accuracy Trend")
-    ax2.legend()
-    ax2.grid(True)
+    axes[1].plot(df["epoch"], df["val_accuracy"], label="Val Accuracy", marker="^", color="green")
+    axes[1].plot(df["epoch"], df["val_f1"], label="Val F1", marker="d", color="orange")
+    axes[1].set_xlabel("Epoch")
+    axes[1].set_ylabel("Score")
+    axes[1].set_title("Centralized Validation Accuracy and F1")
+    axes[1].legend()
+    axes[1].grid(True)
+
+    axes[2].plot(df["epoch"], df["val_roc_auc"], label="Val ROC-AUC", marker="o", color="purple")
+    axes[2].set_xlabel("Epoch")
+    axes[2].set_ylabel("AUC")
+    axes[2].set_title("Centralized Validation ROC-AUC")
+    axes[2].legend()
+    axes[2].grid(True)
 
     plt.tight_layout()
-    plt.savefig("./results/centralized_metrics.png")
+    plt.savefig(os.path.join(RESULTS_DIR, "centralized_metrics.png"))
     plt.close()
-    print("Ada tell you ====== Centralized Learning metrics saved in centralized_metrics.png")
 
-# 训练一个 epoch
-def train_one_epoch(model, loader, optimizer, criterion):
-    model.train()
-    total_loss = 0.0
-    total_samples = 0
-    for data, labels in loader:
-        optimizer.zero_grad()
-        outputs = model(data)
-        loss = criterion(outputs, labels)
-        loss.backward()
-        optimizer.step()
-        total_loss += loss.item() * data.size(0)
-        total_samples += data.size(0)
-    return total_loss / total_samples
 
-# 评估
-def test(model, loader, criterion):
-    model.eval()
-    total_loss = 0.0
-    correct = 0
-    total_samples = 0
-    with torch.no_grad():
-        for data, labels in loader:
-            outputs = model(data)
-            loss = criterion(outputs, labels)
-            total_loss += loss.item() * data.size(0)
-            _, predicted = torch.max(outputs.data, 1)
-            correct += (predicted == labels).sum().item()
-            total_samples += data.size(0)
-    avg_loss = total_loss / total_samples
-    acc = correct / total_samples
-    return avg_loss, acc
+def _should_update_best(best_metrics, current_metrics):
+    if best_metrics is None:
+        return True
 
-# 主函数
+    current_key = current_metrics[SELECTION_METRIC]
+    best_key = best_metrics[SELECTION_METRIC]
+
+    if current_key > best_key:
+        return True
+
+    return current_key == best_key and current_metrics["loss"] < best_metrics["loss"]
+
+
 def run_centralized_training():
-    # 1. 加载全部数据
-    X, y = load_csv_data(CSV_FILENAME)
-    dataset = list(zip(X, y))
+    train_loader, val_loader, test_loader = get_centralized_dataloaders(batch_size=BATCH_SIZE)
 
-    # 2. 全部数据切分训练集/测试集
-    train_size = int(len(dataset) * DATASET_SPLIT)
-    test_size = len(dataset) - train_size
-    train_dataset, test_dataset = torch.utils.data.random_split(dataset, [train_size, test_size])
-
-    # 3. 生成 DataLoader
-    train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
-    test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False)
-
-    # 4. 模型、损失、优化器（和联邦完全一致）
     model = SimpleMLP(input_dim=14, hidden_dim=16, num_classes=2)
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=LR)
 
-    # 5. 日志
-    log_file = init_central_log()
+    init_central_log()
+    write_split_summary(SPLIT_SUMMARY_PATH)
 
-    # 6. 训练
-    print("=== Ada tell you: Centralized Learning Training Beginning ===")
+    best_state = None
+    best_epoch = None
+    best_val_metrics = None
+
+    print("=== Centralized learning begins with train/val/test splits ===")
     for epoch in range(1, EPOCHS + 1):
-        train_loss = train_one_epoch(model, train_loader, optimizer, criterion)
-        test_loss, test_acc = test(model, test_loader, criterion)
+        train_loss = train_model(model, train_loader, optimizer, criterion, epochs=1)
+        val_metrics = evaluate_model(model, val_loader, criterion)
 
-        print(f"Ada tell you ====== Epoch {epoch:2d} | Train Loss: {train_loss:.4f} | Test Loss: {test_loss:.4f} | Acc: {test_acc:.4f}")
+        write_epoch_log(epoch, train_loss, val_metrics)
 
-        with open(log_file, 'a', newline='', encoding='utf-8') as f:
-            writer = csv.writer(f)
-            writer.writerow([epoch, train_loss, test_loss, test_acc])
+        if _should_update_best(best_val_metrics, val_metrics):
+            best_state = copy.deepcopy(model.state_dict())
+            best_epoch = epoch
+            best_val_metrics = dict(val_metrics)
 
-    # 7. 绘图
+        print(
+            "Epoch {epoch:2d} | Train Loss: {train_loss:.4f} | "
+            "Val Loss: {val_loss:.4f} | Val Acc: {val_acc:.4f} | "
+            "Val Precision: {val_precision:.4f} | Val Recall: {val_recall:.4f} | "
+            "Val F1: {val_f1:.4f} | Val AUC: {val_auc:.4f}".format(
+                epoch=epoch,
+                train_loss=train_loss,
+                val_loss=val_metrics["loss"],
+                val_acc=val_metrics["accuracy"],
+                val_precision=val_metrics["precision"],
+                val_recall=val_metrics["recall"],
+                val_f1=val_metrics["f1"],
+                val_auc=val_metrics["roc_auc"],
+            )
+        )
+
+    final_test_metrics = evaluate_model(model, test_loader, criterion)
+    test_rows = [
+        {
+            "selection": "final",
+            "source_epoch": EPOCHS,
+            **flatten_metrics(final_test_metrics),
+        }
+    ]
+
+    if best_state is not None:
+        best_model = SimpleMLP(input_dim=14, hidden_dim=16, num_classes=2)
+        best_model.load_state_dict(best_state)
+        best_test_metrics = evaluate_model(best_model, test_loader, criterion)
+        test_rows.append(
+            {
+                "selection": f"best_val_{SELECTION_METRIC}",
+                "source_epoch": best_epoch,
+                **flatten_metrics(best_test_metrics),
+            }
+        )
+
+    save_test_metrics(test_rows)
     plot_central_metrics()
-    print("\n=== Ada's Tips: Centralized Learning Completed Successfully ===")
+
+    print("\n=== Centralized learning completed ===")
+    for row in test_rows:
+        print(
+            "{selection} | Epoch {source_epoch} | Test Loss: {loss:.4f} | "
+            "Acc: {accuracy:.4f} | Precision: {precision:.4f} | "
+            "Recall: {recall:.4f} | F1: {f1:.4f} | AUC: {roc_auc:.4f} | "
+            "CM: [[{tn}, {fp}], [{fn}, {tp}]]".format(**row)
+        )
+
 
 if __name__ == "__main__":
     run_centralized_training()
