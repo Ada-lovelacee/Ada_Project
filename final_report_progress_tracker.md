@@ -467,6 +467,46 @@ For each source, provide:
 - Which report section it supports: Introduction, Literature Review, Methodology, Results Discussion, or Professional Issues
 ```
 
+### DeepResearch Prompt for Chapter 5
+
+```text
+Find peer-reviewed and authoritative sources specifically for Chapter 5 (Professional Issues) of a final-year project report titled:
+"Federated Learning for Diabetes Prediction Using Clinical and Laboratory Features."
+
+Project context:
+- This is an academic prototype, not a clinical decision system.
+- The project uses tabular clinical/laboratory data for binary diabetes prediction.
+- The implementation uses PyTorch, Flower, and FedAvg.
+- The federated setup is simulated with 3 clients and non-IID partitioning.
+- The report must discuss professional issues around privacy, ethics, risk, reproducibility, and responsible use.
+
+I need sources that support these Chapter 5 themes:
+1. Privacy, confidentiality, and governance of health-related data in machine learning / federated learning
+2. Ethical issues in AI for healthcare, including fairness, bias, explainability, accountability, and risk of misuse
+3. Professional responsibilities in computing or AI projects, such as transparent reporting, reproducibility, academic integrity, and responsible deployment boundaries
+4. Security and privacy risks relevant to federated learning, such as gradient leakage, membership inference, model inversion, or weak aggregation assumptions
+5. Practical risk management for ML or healthcare AI projects, especially where models may be unreliable due to class imbalance, non-IID data, limited validation, or prototype-stage evaluation
+6. Optional but useful: environmental or resource-efficiency concerns in repeated ML experimentation
+
+Source preference:
+- Prefer peer-reviewed journal/conference papers, official guidance, or authoritative institutional publications.
+- Include a mix of federated learning sources, healthcare AI ethics/governance sources, and professional computing guidance.
+- If legal/regulatory sources are included, prefer widely applicable healthcare-data or AI-governance references and clearly state the jurisdiction.
+
+For each source, provide:
+- Full citation in Harvard style
+- DOI or stable URL
+- 2-3 sentence summary in plain academic English
+- Which Chapter 5 subsection it best supports: Project Management, Risk Analysis, Legal, Ethical, Social, Professional, Environmental, or Summary
+- One sentence on how I could use the source in my discussion
+
+Important constraints:
+- Do not invent regulations, standards, or clinical claims.
+- Do not assume this system is approved for clinical deployment.
+- Highlight sources that help justify the statement that this project is an educational privacy-preserving prototype rather than a real-world diagnostic tool.
+- Prioritize sources that are citable in a university report.
+```
+
 ### Rules for AI Use
 
 - Always give the AI the fixed project facts from this tracker.
