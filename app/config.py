@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 from dotenv import load_dotenv
 
@@ -6,15 +7,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
 class Config:
     SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key")
-    MYSQL_HOST = os.getenv("MYSQL_HOST", "127.0.0.1")
-    MYSQL_PORT = int(os.getenv("MYSQL_PORT", "3306"))
-    MYSQL_USER = os.getenv("MYSQL_USER", "root")
-    MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "123456")
-    MYSQL_DB = os.getenv("MYSQL_DB", "federated_viz")
-    SQLALCHEMY_DATABASE_URI = (
-        f"mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}"
-        f"@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DB}?charset=utf8mb4"
-    )
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    DASHBOARD_REFRESH_MS = int(os.getenv("DASHBOARD_REFRESH_MS", "5000"))
+    SYNC_PROJECT_DIR = BASE_DIR / "Synchronization_200Rounds"
+    SYNC_CODE_DIR = SYNC_PROJECT_DIR / "code"
+    SYNC_RESULTS_DIR = SYNC_CODE_DIR / "results"
